@@ -1,4 +1,5 @@
 import dash
+import fastf1.plotting
 from dash import dcc, html
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
@@ -149,8 +150,7 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
     Input('dropdown-1', 'value'),
     Input('dropdown-2', 'value'),
     Input('dropdown-3', 'value'),
-    Input('dropdown-4', 'value'),
-    #Input("submit-val", 'n_clicks')
+    Input('dropdown-4', 'value')
 )
 def plot_data(year, race, driver1, driver2):
     print("PLOT DATA")
@@ -215,7 +215,7 @@ def build_comparaison_tab(year, race, driver1, driver2):
     ax.plot(lap.telemetry['X'], lap.telemetry['Y'], color='black', linestyle='-', linewidth=16, zorder=0)
     norm = plt.Normalize(0, 1)
     # Set the color based on the mask
-    lc = LineCollection(segments, cmap=mpl.colors.ListedColormap(['red', 'green']), norm=norm, linewidth=5)
+    lc = LineCollection(segments, cmap=mpl.colors.ListedColormap([fastf1.plotting.driver_color(driver1), fastf1.plotting.driver_color(driver2)]), norm=norm, linewidth=5)
     lc.set_array(mask)
 
     # Set the values used for colormapping
@@ -229,7 +229,7 @@ def build_comparaison_tab(year, race, driver1, driver2):
     cbaxes = fig.add_axes([0.25, 0.05, 0.5, 0.05])
     normlegend = mpl.colors.Normalize(vmin=0, vmax=1)  # Assuming 'who_fastest' contains True and False values
     legend_labels = [f"Driver {driver1} Fastest", f"Driver {driver2} Fastest"]
-    legend = mpl.colorbar.ColorbarBase(cbaxes, norm=normlegend, cmap=mpl.colors.ListedColormap(['red', 'green']),
+    legend = mpl.colorbar.ColorbarBase(cbaxes, norm=normlegend, cmap=mpl.colors.ListedColormap([fastf1.plotting.driver_color(driver1), fastf1.plotting.driver_color(driver2)]),
                                        orientation="horizontal", ticks=[0, 1])
     legend.set_ticklabels(legend_labels)
 
