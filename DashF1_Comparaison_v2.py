@@ -6,7 +6,7 @@ from dash.exceptions import PreventUpdate
 import time
 
 from dash import dcc, html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import fastf1 as ff1
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
@@ -76,7 +76,7 @@ app.layout = dbc.Container([
         ]),
     ]),
     dbc.Row([
-        #html.Button('Submit', id='submit-val', n_clicks=0),
+        html.Button('Specific Button', n_clicks=0, id='specific-button'),
     ]),
     dbc.Row([
         dbc.Col([
@@ -102,10 +102,7 @@ def update_dropdown_2(selected_year):
     print(selected_year)
     print("------------------------------------------------------")
     session = ff1.get_event_schedule(selected_year)['Country']
-    # session = ff1.get_session(year, wknd, ses)
-    # weekend = session.event
-    # session.load()
-    session = ff1.get_event_schedule(2023)['Country']
+    #session = ff1.get_event_schedule(2023)['Country']
     tab_countries = [i for i in session]
     return [dcc.Dropdown(id='dropdown-2', options=tab_countries, className='mb-3')], tab_countries, tab_countries[0]
 
@@ -147,16 +144,29 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
     return [dcc.Dropdown(id='dropdown-4', options=drivers_name, className='mb-3')], drivers_name, drivers_name[1]
 @app.callback(
     Output(component_id='bar-graph-matplotlib', component_property="src"),
-    Input('dropdown-1', 'value'),
-    Input('dropdown-2', 'value'),
-    Input('dropdown-3', 'value'),
-    Input('dropdown-4', 'value')
+    Input('specific-button', 'n_clicks'),
+    State('dropdown-1', 'value'),
+    State('dropdown-2', 'value'),
+    State('dropdown-3', 'value'),
+    State('dropdown-4', 'value'),
+    background=True,
+    running=[
+        (Output("specific-button", "disabled"), True, False),
+    ],
 )
-def plot_data(year, race, driver1, driver2):
-    print("PLOT DATA")
-    fig_bar_matplotlib = build_comparaison_tab(year, race, driver1, driver2)
-    print("FIG BAR - Done")
-    return fig_bar_matplotlib
+def plot_data(n_clicks, year, race, driver1, driver2):
+    if n_clicks is None:
+        raise PreventUpdate
+    else :
+        ctx = dash.callback_context
+        button_id = ctx.triggered_id
+        button_prop_name = 'disabled'
+        button_state = [{button_id: True, button_prop_name: True}]
+        print("PLOT DATA")
+        fig_bar_matplotlib = build_comparaison_tab(year, race, driver1, driver2)
+        print("FIG BAR - Done")
+        button_state = [{button_id: False, button_prop_name: False}]
+    return fig_bar_matplotlib, button_state
 
 def build_comparaison_tab(year, race, driver1, driver2):
     global session
