@@ -21,6 +21,7 @@ from dash.long_callback import DiskcacheLongCallbackManager
 import dash._callback_context as ctx
 ## Diskcache
 import diskcache
+import plotly.graph_objects as go
 
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
@@ -98,11 +99,18 @@ app.layout = dbc.Container([
             dbc.Row([
                 dbc.Col([
                     dcc.Loading(
+                        id="loading-overlaying",
+                        children=[dcc.Graph(id="overlaying")],
+                        type="circle",
+                    )
+                ]),
+                dbc.Col([
+                    dcc.Loading(
                         id="loading-bar_graph",
                         children=[html.Img(id='bar-graph-matplotlib')],
                         type="circle",
                     )
-                ], width=12)
+                ])
             ])
         ]),
         dcc.Tab(label='Tab 2', value='tab-2', children=[
@@ -189,7 +197,8 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
         return [dcc.Dropdown(id='dropdown-4', options=["None"], className='mb-3')], ["None"], ["None"], False
 
 @app.long_callback(
-    output=Output(component_id='bar-graph-matplotlib', component_property="src"),
+    output=[Output(component_id='bar-graph-matplotlib', component_property="src"),
+            Output(component_id='overlaying', component_property="figure")],
     inputs=[Input("button_id", "n_clicks")],
     state=[State('dropdown-1', 'value'),
            State('dropdown-2', 'value'),
@@ -204,9 +213,9 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
 def plot_data(n_clicks, year, race, driver1, driver2):
     #n_clicks, year, race, driver1, driver2
     print("PLOT DATA")
-    fig_bar_matplotlib = build_comparaison_tab(year, race, driver1, driver2)
+    fig_bar_matplotlib, overlaying = build_comparaison_tab(year, race, driver1, driver2)
     print("Done")
-    return fig_bar_matplotlib
+    return fig_bar_matplotlib, overlaying
 
 def build_comparaison_tab(year, race, driver1, driver2):
     global session
@@ -276,6 +285,7 @@ def build_comparaison_tab(year, race, driver1, driver2):
                     who_fastest.append(True)
                 else:
                     who_fastest.append(False)
+
     # Get telemetry data
         x = lap.telemetry['X']  # values for x-axis
         y = lap.telemetry['Y']  # values for y-axis
@@ -320,8 +330,8 @@ def build_comparaison_tab(year, race, driver1, driver2):
         # Embed the result in the html output.
         fig_data = base64.b64encode(buf.getbuffer()).decode("ascii")
         fig_bar_matplotlib = f'data:image/png;base64,{fig_data}'
-
-        return fig_bar_matplotlib
+        fig_over = overlayingSpeed(session, _driver1, _driver2)
+        return fig_bar_matplotlib, fig_over
 
     except Exception as e:
         # Handle the error here
@@ -336,8 +346,53 @@ def build_comparaison_tab(year, race, driver1, driver2):
         fig_data = base64.b64encode(buf.getbuffer()).decode("ascii")
         fig_bar_matplotlib = f'data:image/png;base64,{fig_data}'
 
-        return fig_bar_matplotlib
+        return fig_bar_matplotlib, None
 
+def overlayingSpeed(SESSION_FASTF1, DRIVER1, DRIVER2):
+        fastf1.plotting.setup_mpl(misc_mpl_mods=False)
+        rbr_color = fastf1.plotting.driver_color(DRIVER1)
+        mer_color = fastf1.plotting.driver_color(DRIVER2)
+        session = SESSION_FASTF1
+        ver_lap = session.laps.pick_driver(DRIVER1).pick_fastest()
+        ham_lap = session.laps.pick_driver(DRIVER2).pick_fastest()
+        ver_tel = ver_lap.get_car_data().add_distance()
+        ham_tel = ham_lap.get_car_data().add_distance()
 
+        ver_tel_data = {
+            'Distance': ver_tel['Distance'],
+            'Speed': ver_tel['Speed']
+        }
+
+        ham_tel_data = {
+            'Distance': ham_tel['Distance'],
+            'Speed': ham_tel['Speed']
+        }
+
+        ver_trace = go.Scatter(
+            x=ver_tel_data['Distance'],
+            y=ver_tel_data['Speed'],
+            mode='lines',
+            name='VER',
+            line=dict(color=rbr_color)
+        )
+
+        ham_trace = go.Scatter(
+            x=ham_tel_data['Distance'],
+            y=ham_tel_data['Speed'],
+            mode='lines',
+            name=DRIVER2,
+            line=dict(color=mer_color)
+        )
+
+        layout = go.Layout(
+            title=f"Fastest Lap in Race - Overlaying \n {session.event['EventName']} {session.event.year}",
+            xaxis=dict(title='Distance in m'),
+            yaxis=dict(title='Speed in km/h'),
+            legend=dict(x=0, y=1)
+        )
+
+        # Create figure and add traces
+        fig = go.Figure(data=[ver_trace, ham_trace], layout=layout)
+        return fig
 if __name__ == '__main__':
     app.run_server(debug=True, port=8082)
