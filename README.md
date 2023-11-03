@@ -13,27 +13,27 @@
 
 **Onglet n°1**, Comparaison entre 2 pilotes :
 
--       1 : Graphique d’un circuit lors d’une certaine année illustrant les meilleurs temps par secteurs entre 2 pilotes.
+- 1 : Graphique d’un circuit lors d’une certaine année illustrant les meilleurs temps par secteurs entre 2 pilotes.
 
--       2 : Overlaying speed traces of two laps, graphique line plot qui démontre de manière superposée les vitesses durant un tour entre 2 pilotes
+- 2 : Overlaying speed traces of two laps, graphique line plot qui démontre de manière superposée les vitesses durant un tour entre 2 pilotes
 
 **Interactivité** sur les variables du circuit, des 2 pilotes à comparer ainsi que de l’année de la course.
 
 **Onglet n°2**, Vue globale d’un week-end de course :
 
--       1 : Qualifying Result Overview, différence de temps entre les pilotes durant la phase de qualification
+- 1 : Qualifying Result Overview, différence de temps entre les pilotes durant la phase de qualification
 
--       2 : Position changes during a race
+- 2 : Position changes during a race
 
--       3 : Team Pace Comparaison, comparaison de la vitesse pour chaque écurie au travers des boîtes à moustaches
+- 3 : Team Pace Comparaison, comparaison de la vitesse pour chaque écurie au travers des boîtes à moustaches
 
 **Interactivité** sur les variables du circuit, ainsi que l’année de la course.
 
 **Onglet n°3**, Classement général :
 
--       1 : Plot driver standings in a heatmap, classement des pilotes par courses
+- 1 : Plot driver standings in a heatmap, classement des pilotes par courses
 
--       2 : Plot teams standings in a heatmap, classement des écuries par courses
+- 2 : Plot teams standings in a heatmap, classement des écuries par courses
 
 **Interactivité** sur l’année du classement
 
