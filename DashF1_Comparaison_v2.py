@@ -22,6 +22,9 @@ import dash._callback_context as ctx
 ## Diskcache
 import diskcache
 import plotly.graph_objects as go
+from fastf1.ergast import Ergast
+import pandas as pd
+import plotly.express as px
 
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
@@ -119,6 +122,36 @@ app.layout = dbc.Container([
                         html.P('This is a simple welcome message.')
                     ])
         ]),
+        dcc.Tab(label='Classement par course', value='tab-3', children=[
+                    html.Div([
+                                html.H2('Classement des Pilotes et des Équipes par Courses',style={'margin-top': '10px'}),
+                                html.P("Les graphiques interactifs présentent le nombre de points gagnés par course pour chaque participant, qu'il s'agisse de pilotes ou d'équipes. L'ordre des équipes et des pilotes est déterminé en fonction du nombre total de points accumulés à la fin de la saison ou à l'étape actuelle de la saison en cours.")
+                            ]),
+                    dcc.Dropdown(
+                        id='dropdown_tab_3_year',
+                        options=[
+                            {'label': str(year), 'value': year} for year in range(1990, 2024)
+                        ],
+                        value=2022,
+                        className='mb-3 mt-10'
+                    ),
+                    dbc.Row([
+                        html.H3("Classement des courses par pilote !",style={'margin-top': '10px'}),
+                        dcc.Loading(
+                            id="classementParPilotes",
+                            children=[dcc.Graph(id="class-par-pilotes")],
+                            type="circle",
+                        )
+                    ]),
+                    dbc.Row([
+                        html.H3("Classement des courses par équipe !",style={'margin-top': '10px'}),
+                        dcc.Loading(
+                            id="classementParTeams",
+                            children=[dcc.Graph(id="class-par-teams")],
+                            type="circle",
+                        )
+                    ]),
+                ]),
     ]),
 ])
 
@@ -212,6 +245,17 @@ def plot_data(n_clicks, year, race, driver1, driver2):
     fig_bar_matplotlib, overlaying = build_comparaison_tab(year, race, driver1, driver2)
     print("Done")
     return fig_bar_matplotlib, overlaying
+
+
+@app.callback(
+    Output(component_id='class-par-pilotes', component_property="figure"),
+    [Input("dropdown_tab_3_year", "value")]
+)
+def plot_data_tab_3(year):
+    print("PLOT DATA")
+    fig = plot_standings_by_driver(year)
+    print("Charging done")
+    return fig
 
 def build_comparaison_tab(year, race, driver1, driver2):
     global session
@@ -390,5 +434,71 @@ def overlayingSpeed(SESSION_FASTF1, DRIVER1, DRIVER2):
         # Create figure and add traces
         fig = go.Figure(data=[ver_trace, ham_trace], layout=layout)
         return fig
+
+def plot_standings_by_driver(SEASON):
+    ergast = Ergast()
+    races = ergast.get_race_schedule(SEASON)  # Races in year 2022
+    results = []
+    for rnd, race in races['raceName'].items():
+        print(f"Race : {race}")
+        # Get results. Note that we use the round no. + 1, because the round no.
+        # starts from one (1) instead of zero (0)
+        temp = ergast.get_race_results(season=SEASON, round=rnd + 1)
+        if len(temp.content) < 1:
+            break
+        else:
+            temp = temp.content[0]
+
+        # If there is a sprint, get the results as well
+        sprint = ergast.get_sprint_results(season=SEASON, round=rnd + 1)
+        if sprint.content and sprint.description['round'][0] == rnd + 1:
+            temp = pd.merge(temp, sprint.content[0], on='driverCode', how='left')
+            # Add sprint points and race points to get the total
+            temp['points'] = temp['points_x'] + temp['points_y']
+            temp.drop(columns=['points_x', 'points_y'], inplace=True)
+
+        # Add round no. and grand prix name
+        temp['round'] = rnd + 1
+        temp['race'] = race.removesuffix(' Grand Prix')
+        temp = temp[['round', 'race', 'driverCode', 'points']]  # Keep useful cols.
+        results.append(temp)
+
+    # Append all races into a single dataframe
+    results = pd.concat(results)
+    races = results['race'].drop_duplicates()
+    results = results.pivot(index='driverCode', columns='round', values='points')
+    # Rank the drivers by their total points
+    results['total_points'] = results.sum(axis=1)
+    results = results.sort_values(by='total_points', ascending=False)
+    results.drop(columns='total_points', inplace=True)
+
+    # Use race name, instead of round no., as column names
+    results.columns = races
+    fig = px.imshow(
+        results,
+        text_auto=True,
+        aspect='auto',  # Automatically adjust the aspect ratio
+        color_continuous_scale=[[0, 'rgb(198, 219, 239)'],  # Blue scale
+                                [0.25, 'rgb(107, 174, 214)'],
+                                [0.5, 'rgb(33,  113, 181)'],
+                                [0.75, 'rgb(8,   81,  156)'],
+                                [1, 'rgb(8,   48,  107)']],
+        labels={'x': 'Race',
+                'y': 'Driver',
+                'color': 'Points'}  # Change hover texts
+    )
+    fig.update_xaxes(title_text='')  # Remove axis titles
+    fig.update_yaxes(title_text='')
+    fig.update_yaxes(tickmode='linear')  # Show all ticks, i.e. driver names
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGrey',
+                     showline=False,
+                     tickson='boundaries')  # Show horizontal grid only
+    fig.update_xaxes(showgrid=False, showline=False)  # And remove vertical grid
+    fig.update_layout(plot_bgcolor='rgba(0,0,0,0)')  # White background
+    fig.update_layout(coloraxis_showscale=False)  # Remove legend
+    fig.update_layout(xaxis=dict(side='top'))  # x-axis on top
+    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))  # Remove border margins
+    return fig
+
 if __name__ == '__main__':
     app.run_server(debug=True, port=8082)
