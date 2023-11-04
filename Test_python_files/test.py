@@ -30,29 +30,29 @@ app.layout = html.Div([
     [Input('season-dropdown', 'value')]
 )
 def update_graph(selected_season):
-    fig = plot_standings_by_driver(selected_season)
+    fig = plot_standings_by_teams(selected_season)
     print("Charging done")
     return fig
 
 
-def plot_standings_by_driver(SEASON):
+def plot_standings_by_teams(Year):
     ergast = Ergast()
-    races = ergast.get_race_schedule(SEASON)  # Races in year 2022
+    races = ergast.get_race_schedule(Year)  # Races in year 2022
     results = []
     for rnd, race in races['raceName'].items():
-        print(f"Race : {race}")
+        print("Teams : Race name ", race)
         # Get results. Note that we use the round no. + 1, because the round no.
         # starts from one (1) instead of zero (0)
-        temp = ergast.get_race_results(season=SEASON, round=rnd + 1)
+        temp = ergast.get_race_results(season=Year, round=rnd + 1)
         if len(temp.content) < 1:
             break
         else:
             temp = temp.content[0]
 
         # If there is a sprint, get the results as well
-        sprint = ergast.get_sprint_results(season=SEASON, round=rnd + 1)
+        sprint = ergast.get_sprint_results(season=Year, round=rnd + 1)
         if sprint.content and sprint.description['round'][0] == rnd + 1:
-            temp = pd.merge(temp, sprint.content[0], on='driverCode', how='left')
+            temp = pd.merge(temp, sprint.content[0], on='constructorName', how='left')
             # Add sprint points and race points to get the total
             temp['points'] = temp['points_x'] + temp['points_y']
             temp.drop(columns=['points_x', 'points_y'], inplace=True)
@@ -60,20 +60,19 @@ def plot_standings_by_driver(SEASON):
         # Add round no. and grand prix name
         temp['round'] = rnd + 1
         temp['race'] = race.removesuffix(' Grand Prix')
-        temp = temp[['round', 'race', 'driverCode', 'points']]  # Keep useful cols.
+        temp = temp[['round', 'race', 'constructorName', 'points']]  # Keep useful cols.
         results.append(temp)
-
-    # Append all races into a single dataframe
     results = pd.concat(results)
     races = results['race'].drop_duplicates()
-    results = results.pivot(index='driverCode', columns='round', values='points')
-    # Rank the drivers by their total points
+    test = results.groupby(["round", "race", "constructorName"]).sum().reset_index()
+    results = test.pivot(index='constructorName', columns='race', values='points')
     results['total_points'] = results.sum(axis=1)
     results = results.sort_values(by='total_points', ascending=False)
     results.drop(columns='total_points', inplace=True)
 
     # Use race name, instead of round no., as column names
     results.columns = races
+    # Assuming 'results' is your data, replace it with your actual dat
     fig = px.imshow(
         results,
         text_auto=True,
