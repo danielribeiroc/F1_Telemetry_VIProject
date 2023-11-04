@@ -161,3 +161,7 @@ cython_debug/
 
 
 .idea
+cache/cache.db
+cache/cache.db
+cache/cache.db-shm
+cache/cache.db-wal

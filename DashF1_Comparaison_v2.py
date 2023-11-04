@@ -121,10 +121,6 @@ app.layout = dbc.Container([
         ]),
     ]),
 ])
-def time_consuming_function(selected_year, selected_month):
-    # Simulate a time-consuming operation
-    time.sleep(3)
-    return [{'label': f'Day {day}', 'value': day} for day in range(1, 32)]
 
 @app.callback(
     Output('loading-dropdown-2', 'children'),
