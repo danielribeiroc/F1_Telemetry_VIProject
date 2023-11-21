@@ -129,7 +129,17 @@ app.layout = dbc.Container([
                         type="circle",
                     )
                 ])
-            ])
+            ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
@@ -182,6 +192,16 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
         dcc.Tab(label='Classement par course', value='tab-3', children=[
             html.Div([
@@ -217,6 +237,16 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
     ]),
 ])
