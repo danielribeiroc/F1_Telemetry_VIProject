@@ -40,8 +40,14 @@ tab_test = None
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
 
+f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
+additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
 app.layout = dbc.Container([
-    html.H1("Comparaison", className='mb-2', style={'textAlign': 'center'}),
+    dbc.Row([
+        dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
+        dbc.Col(html.H1("F1 - Telemetry - Project VI", className='mb-2', style={'textAlign': 'center'}), width=7),
+        dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
+    ], align='center', className='mb-4 mt-4'),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
