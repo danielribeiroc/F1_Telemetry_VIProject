@@ -42,6 +42,20 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_call
 
 f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
 additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
+
+modal = dbc.Modal(
+    [
+        dbc.ModalHeader(dbc.ModalTitle("About the Project")),
+        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),  # Add your project information here
+        dbc.ModalFooter(
+            dbc.Button("Close", id="close-modal", className="ms-auto", n_clicks=0)
+        ),
+    ],
+    id="modal",
+    is_open=False,
+)
+
+
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
@@ -130,6 +144,12 @@ app.layout = dbc.Container([
                     )
                 ])
             ]),
+            html.Div(
+                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"), id="open-modal", n_clicks=0,
+                           className="rounded-circle custom-hover-button", style={"background-color": "white", "border-color": "black", "border-style": "solid"  }),
+                style={"position": "fixed", "bottom": 20, "left": 20, "width": "50px", "height": "50px"}
+            ),
+            modal,
             dbc.Row(
                     dbc.Col(
                         html.Footer(
@@ -251,6 +271,15 @@ app.layout = dbc.Container([
     ]),
 ])
 
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open-modal", "n_clicks"), Input("close-modal", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
 
 def get_years_selection(selected_year):
     if selected_year is None:
