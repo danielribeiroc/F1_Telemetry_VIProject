@@ -134,9 +134,7 @@ app.layout = dbc.Container([
                         id="loading-overlaying",
                         children=[dcc.Graph(id="overlaying")],
                         type="circle",
-                    )
-                ]),
-                dbc.Col([
+                    ),
                     dcc.Loading(
                         id="loading-bar_graph",
                         children=[html.Img(id='bar-graph-matplotlib')],
@@ -689,7 +687,7 @@ def plot_teams_speeds_laps(session):
         fig.update_traces(selector=dict(name=team), line=dict(color=color))
 
     # Update layout and titles
-    fig.update_layout(title="Team speed comparaison by lap : 2023 British Grand Prix", xaxis_title=None,
+    fig.update_layout(title=f"Team speed comparaison by lap : {session.event.year} {session.event['EventName']}", xaxis_title=None,
                       yaxis_title="Lap Time (s)")
     return fig
 
