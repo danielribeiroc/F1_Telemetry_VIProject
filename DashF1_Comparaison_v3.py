@@ -32,6 +32,7 @@ import plotly.graph_objects as go
 ## Diskcache
 import diskcache
 
+fastf1.Cache.enable_cache("./cache")
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
 session = None
@@ -72,7 +73,7 @@ app.layout = dbc.Container([
                         dcc.Dropdown(
                             id='dropdown-11',
                             options=[
-                                {'label': str(year), 'value': year} for year in range(1950, 2024)
+                                {'label': str(year), 'value': year} for year in range(2019, 2024)
                             ],
                             value=2023,
                             className='mb-3 mt-10'
@@ -135,7 +136,7 @@ app.layout = dbc.Container([
                     dcc.Dropdown(
                         id='dropdown-21',
                         options=[
-                            {'label': str(year), 'value': year} for year in range(1950, 2024)
+                            {'label': str(year), 'value': year} for year in range(2019, 2024)
                         ],
                         value=2023,
                         className='mb-3 mt-10'
@@ -185,7 +186,7 @@ app.layout = dbc.Container([
             dcc.Dropdown(
                 id='dropdown_tab_3_year',
                 options=[
-                    {'label': str(year), 'value': year} for year in range(1990, 2024)
+                    {'label': str(year), 'value': year} for year in range(2019, 2024)
                 ],
                 value=2022,
                 className='mb-3 mt-10'
@@ -238,7 +239,7 @@ def get_years_selection(selected_year):
 def update_dropdown_12(selected_year):
     tab_countries = get_years_selection(selected_year)
     # [{'label': list[i], 'value': i} for i in range(len(list))]
-    return [dcc.Dropdown(id='dropdown-12', options=tab_countries, className='mb-3')], tab_countries, tab_countries[0]
+    return [dcc.Dropdown(id='dropdown-12', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
 
 
 @app.callback(
@@ -249,7 +250,7 @@ def update_dropdown_12(selected_year):
 )
 def update_dropdown_22(selected_year):
     tab_countries = get_years_selection(selected_year)
-    return [dcc.Dropdown(id='dropdown-22', options=tab_countries, className='mb-3')], tab_countries, tab_countries[0]
+    return [dcc.Dropdown(id='dropdown-22', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
 
 
 @app.callback(
@@ -372,8 +373,6 @@ def build_comparaison_tab(year, race, driver1, driver2):
     print(tab_test)
     try:
 
-        print(f"BEFORE : Values selected : {year} - {race} - {driver1} - {driver2}")
-
         if race == None:
             _1race = "Bahrain Grand Prix"
         else:
@@ -387,7 +386,6 @@ def build_comparaison_tab(year, race, driver1, driver2):
         else:
             _driver2 = driver2
 
-        print(f"AFTER : Values selected : {year} - {_1race} - {_driver1} - {_driver2}")
         year_schedule = ff1.get_event_schedule(year)['EventName']
         indices = [index for index, country in enumerate(year_schedule) if country == _1race]
         _race = year_schedule[indices[0]]
@@ -522,7 +520,7 @@ def overlayingSpeed(SESSION_FASTF1, DRIVER1, DRIVER2):
         x=ver_tel_data['Distance'],
         y=ver_tel_data['Speed'],
         mode='lines',
-        name='VER',
+        name=DRIVER1,
         line=dict(color=rbr_color)
     )
 

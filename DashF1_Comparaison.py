@@ -1,31 +1,38 @@
-import dash
-import fastf1.plotting
-from dash import dcc, html
-from dash.dependencies import Input, Output
-from dash.exceptions import PreventUpdate
 import time
+import base64
+import numpy as np
+import pandas as pd
+from io import BytesIO
+from timple.timedelta import strftimedelta
+
+import dash
 from dash import dcc, html
+import dash._callback_context as ctx
+import dash_bootstrap_components as dbc
+from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
+from dash.long_callback import DiskcacheLongCallbackManager
+
 import fastf1 as ff1
+import fastf1.plotting
+from fastf1.core import Laps
+from fastf1.ergast import Ergast
+
+import matplotlib  # pip install matplotlib
+
+matplotlib.use('agg')
+
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
-import numpy as np
-import matplotlib as mpl
-import dash
-import dash_bootstrap_components as dbc
-import matplotlib                                # pip install matplotlib
-matplotlib.use('agg')
-import base64
-from io import BytesIO
-from dash.long_callback import DiskcacheLongCallbackManager
-import dash._callback_context as ctx
+
+import plotly.express as px
+import plotly.graph_objects as go
+
 ## Diskcache
 import diskcache
-import plotly.graph_objects as go
-from fastf1.ergast import Ergast
-import pandas as pd
-import plotly.express as px
 
+fastf1.Cache.enable_cache("./cache")
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
 session = None
@@ -33,15 +40,37 @@ tab_test = None
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
 
+f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
+additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
+
+modal = dbc.Modal(
+    [
+        dbc.ModalHeader(dbc.ModalTitle("About the Project")),
+        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),  # Add your project information here
+        dbc.ModalFooter(
+            dbc.Button("Close", id="close-modal", className="ms-auto", n_clicks=0)
+        ),
+    ],
+    id="modal",
+    is_open=False,
+)
+
+
 app.layout = dbc.Container([
-    html.H1("Comparaison", className='mb-2', style={'textAlign': 'center'}),
+    dbc.Row([
+        dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
+        dbc.Col(html.H1("F1 - Telemetry - Project VI", className='mb-2', style={'textAlign': 'center'}), width=7),
+        dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
+    ], align='center', className='mb-4 mt-4'),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
                 html.Br(),
                 html.H3('Vue comparaison entre 2 pilotes', style={'margin-top': '10px'}),
-                html.P("Dans cet onglet, les utilisateurs ont la possibilité de comparer les performances de deux pilotes lors d'une course spécifique. n cas d'erreur ou de problème lors du "
-                       "chargement des données ou du traitement des informations, un message d'erreur explicite est affiché pour informer l'utilisateur de la situation, garantissant ainsi une expérience utilisateur transparente et informative.", style={'margin-top': '10px'}),
+                html.P(
+                    "Dans cet onglet, les utilisateurs ont la possibilité de comparer les performances de deux pilotes lors d'une course spécifique. n cas d'erreur ou de problème lors du "
+                    "chargement des données ou du traitement des informations, un message d'erreur explicite est affiché pour informer l'utilisateur de la situation, garantissant ainsi une expérience utilisateur transparente et informative.",
+                    style={'margin-top': '10px'}),
                 html.Br(),
                 dbc.Alert(
                     "La session n'a pas de données (potentiellement qu'elle ne s'est pas encore déroulé)",
@@ -62,9 +91,9 @@ app.layout = dbc.Container([
                 dbc.Row([
                     dbc.Col([
                         dcc.Dropdown(
-                            id='dropdown-1',
+                            id='dropdown-11',
                             options=[
-                                {'label': str(year), 'value': year} for year in range(1950, 2024)
+                                {'label': str(year), 'value': year} for year in range(2019, 2024)
                             ],
                             value=2023,
                             className='mb-3 mt-10'
@@ -72,9 +101,9 @@ app.layout = dbc.Container([
                     ]),
                     dbc.Col([
                         dcc.Loading(
-                            id='loading-dropdown-2',
+                            id='loading-dropdown-12',
                             type='default',
-                            children=[dcc.Dropdown(id='dropdown-2', className='mb-3 mt-10')]
+                            children=[dcc.Dropdown(id='dropdown-12', className='mb-3 mt-10')]
                         )
                     ])
                 ]),
@@ -105,85 +134,195 @@ app.layout = dbc.Container([
                         id="loading-overlaying",
                         children=[dcc.Graph(id="overlaying")],
                         type="circle",
-                    )
-                ]),
-                dbc.Col([
+                    ),
                     dcc.Loading(
                         id="loading-bar_graph",
                         children=[html.Img(id='bar-graph-matplotlib')],
                         type="circle",
                     )
                 ])
-            ])
+            ]),
+            html.Div(
+                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"), id="open-modal", n_clicks=0,
+                           className="rounded-circle custom-hover-button", style={"background-color": "white", "border-color": "black", "border-style": "solid"  }),
+                style={"position": "fixed", "bottom": 20, "left": 20, "width": "50px", "height": "50px"}
+            ),
+            modal,
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
-        dcc.Tab(label='Tab 2', value='tab-2', children=[
+        dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
-                        html.H3('Welcome to Tab 2!',style={'margin-top': '10px'}),
-                        html.P('This is a simple welcome message.')
-                    ])
+                html.H3('Dynamique des courses et analyse des résultats des équipes', style={'margin-top': '10px'}),
+                html.P(
+                    'Sous cet onglet nous avons un premier graphique qui permet de voir les différences de temps pour toute la course entre tous les pilotes, l\'évolution du classement durant la course pour chaque pilote et enfin des une booîte à moustache nous indiquant les statistiques pour chaque écurie concernant le temps pour chaque tour')
+            ]),
+            dbc.Row([
+                dbc.Col([
+                    dcc.Dropdown(
+                        id='dropdown-21',
+                        options=[
+                            {'label': str(year), 'value': year} for year in range(2019, 2024)
+                        ],
+                        value=2023,
+                        className='mb-3 mt-10'
+                    )
+                ]),
+                dbc.Col([
+                    dcc.Loading(
+                        id='loading-dropdown-22',
+                        type='default',
+                        children=[dcc.Dropdown(id='dropdown-22', className='mb-3 mt-10')]
+                    )
+                ])
+            ]),
+            dbc.Row([
+                html.H3("Différence de vitesse durant la phase de qualification", style={'margin-top': '10px'}),
+                dcc.Loading(
+                    id="fastestLaps",
+                    children=[dcc.Graph(id="fastests-laps")],
+                    type="circle",
+                )
+            ]),
+            dbc.Row([
+                html.H3("Position des pilotes par tour", style={'margin-top': '10px'}),
+                dcc.Loading(
+                    id="positionLaps",
+                    children=[dcc.Graph(id="positions-laps")],
+                    type="circle",
+                )
+            ]),dbc.Row([
+                html.H3("Statistiques du temps réalisé par tour pour chaque équipe", style={'margin-top': '10px'}),
+                dcc.Loading(
+                    id="teamsSpeeds",
+                    children=[dcc.Graph(id="teams-speeds")],
+                    type="circle",
+                )
+            ]),
+            dbc.Row([
+                html.H3("", style={'margin-bottom': '30px'}),
+            ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
         dcc.Tab(label='Classement par course', value='tab-3', children=[
-                    html.Div([
-                                html.H2('Classement des Pilotes et des Équipes par Courses',style={'margin-top': '10px'}),
-                                html.P("Les graphiques interactifs présentent le nombre de points gagnés par course pour chaque participant, qu'il s'agisse de pilotes ou d'équipes. L'ordre des équipes et des pilotes est déterminé en fonction du nombre total de points accumulés à la fin de la saison ou à l'étape actuelle de la saison en cours.")
-                            ]),
-                    dcc.Dropdown(
-                        id='dropdown_tab_3_year',
-                        options=[
-                            {'label': str(year), 'value': year} for year in range(1990, 2024)
-                        ],
-                        value=2022,
-                        className='mb-3 mt-10'
-                    ),
-                    dbc.Row([
-                        html.H3("Classement des courses par pilote !",style={'margin-top': '10px'}),
-                        dcc.Loading(
-                            id="classementParPilotes",
-                            children=[dcc.Graph(id="class-par-pilotes")],
-                            type="circle",
-                        )
-                    ]),
-                    dbc.Row([
-                        html.H3("Classement des courses par équipe !",style={'margin-top': '10px'}),
-                        dcc.Loading(
-                            id="classementParTeams",
-                            children=[dcc.Graph(id="class-par-teams")],
-                            type="circle",
-                        )
-                    ]),
+            html.Div([
+                html.H2('Classement des Pilotes et des Équipes par Courses', style={'margin-top': '10px'}),
+                html.P(
+                    "Les graphiques interactifs présentent le nombre de points gagnés par course pour chaque participant, qu'il s'agisse de pilotes ou d'équipes. L'ordre des équipes et des pilotes est déterminé en fonction du nombre total de points accumulés à la fin de la saison ou à l'étape actuelle de la saison en cours.")
+            ]),
+            dcc.Dropdown(
+                id='dropdown_tab_3_year',
+                options=[
+                    {'label': str(year), 'value': year} for year in range(2019, 2024)
+                ],
+                value=2022,
+                className='mb-3 mt-10'
+            ),
+            dbc.Row([
+                html.H3("Classement des courses par pilote !", style={'margin-top': '10px'}),
+                dcc.Loading(
+                    id="classementParPilotes",
+                    children=[dcc.Graph(id="class-par-pilotes")],
+                    type="circle",
+                )
+            ]),
+            dbc.Row([
+                html.H3("Classement des courses par équipe !", style={'margin-top': '10px'}),
+                dcc.Loading(
+                    id="classementParTeams",
+                    children=[dcc.Graph(id="class-par-teams")],
+                    type="circle",
+                )
+            ]),
 
-                    dbc.Row([
-                        html.H3("", style={'margin-bottom': '30px'}),
-                    ]),
-                ]),
+            dbc.Row([
+                html.H3("", style={'margin-bottom': '30px'}),
+            ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
+        ]),
     ]),
 ])
 
 @app.callback(
-    Output('loading-dropdown-2', 'children'),
-    Output('dropdown-2', 'options'),
-    Output('dropdown-2', 'value'),
-    Input('dropdown-1', 'value')
+    Output("modal", "is_open"),
+    [Input("open-modal", "n_clicks"), Input("close-modal", "n_clicks")],
+    [State("modal", "is_open")],
 )
-def update_dropdown_2(selected_year):
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
+
+def get_years_selection(selected_year):
     if selected_year is None:
         raise PreventUpdate
+
     print("------------------------------------------------------")
     print(selected_year)
     print("------------------------------------------------------")
-    session = ff1.get_event_schedule(selected_year)['EventName']
-    #session = ff1.get_event_schedule(2023)['Country']
-    tab_countries = [i for i in session]
-    #[{'label': list[i], 'value': i} for i in range(len(list))]
-    return [dcc.Dropdown(id='dropdown-2', options=tab_countries, className='mb-3')], tab_countries, tab_countries[0]
+    years_session = ff1.get_event_schedule(selected_year)['EventName']
+    # session = ff1.get_event_schedule(2023)['Country']
+    tab_countries = [i for i in years_session]
+    # [{'label': list[i], 'value': i} for i in range(len(list))]
+    return tab_countries
+
+
+@app.callback(
+    Output('loading-dropdown-12', 'children'),
+    Output('dropdown-12', 'options'),
+    Output('dropdown-12', 'value'),
+    Input('dropdown-11', 'value')
+)
+def update_dropdown_12(selected_year):
+    tab_countries = get_years_selection(selected_year)
+    # [{'label': list[i], 'value': i} for i in range(len(list))]
+    return [dcc.Dropdown(id='dropdown-12', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
+
+
+@app.callback(
+    Output('loading-dropdown-22', 'children'),
+    Output('dropdown-22', 'options'),
+    Output('dropdown-22', 'value'),
+    Input('dropdown-21', 'value')
+)
+def update_dropdown_22(selected_year):
+    tab_countries = get_years_selection(selected_year)
+    return [dcc.Dropdown(id='dropdown-22', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
+
 
 @app.callback(
     Output('loading-dropdown-3', 'children'),
     Output('dropdown-3', 'options'),
     Output('dropdown-3', 'value'),
     Output("alert-no-fade", "is_open"),
-    Input('dropdown-1', 'value'),
-    Input('dropdown-2', 'value')
+    Input('dropdown-11', 'value'),
+    Input('dropdown-12', 'value')
 )
 def update_dropdown_3(selected_year, selected_race):
     global session
@@ -195,15 +334,16 @@ def update_dropdown_3(selected_year, selected_race):
     indices = [index for index, country in enumerate(year_schedule) if country == selected_race]
     print("Print indices :")
     print(indices)
-    if indices==None:
-        indices=0
+    if indices == None:
+        indices = 0
 
     try:
         session = ff1.get_session(selected_year, year_schedule[indices[0]], "R")
         session.load(telemetry=False, laps=False, weather=False)
         drivers = [i for i in session.drivers]
         drivers_name = [session.get_driver(i)["Abbreviation"] for i in drivers]
-        return [dcc.Dropdown(id='dropdown-3', options=drivers_name, className='mb-3')], drivers_name, drivers_name[0], False
+        return [dcc.Dropdown(id='dropdown-3', options=drivers_name, className='mb-3')], drivers_name, drivers_name[
+            0], False
     except:
         return [dcc.Dropdown(id='dropdown-3', options=["None"], className='mb-3')], ["None"], ["None"], True
 
@@ -213,8 +353,8 @@ def update_dropdown_3(selected_year, selected_race):
     Output('dropdown-4', 'options'),
     Output('dropdown-4', 'value'),
     Output("alert-no-fade2", "is_open"),
-    Input('dropdown-1', 'value'),
-    Input('dropdown-2', 'value'),
+    Input('dropdown-11', 'value'),
+    Input('dropdown-12', 'value'),
     Input('dropdown-3', 'value')
 )
 def update_dropdown_4(selected_year, selected_month, selected_day):
@@ -225,16 +365,18 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
         session.load(telemetry=False, laps=False, weather=False)
         drivers = [i for i in session.drivers]
         drivers_name = [session.get_driver(i)["Abbreviation"] for i in drivers]
-        return [dcc.Dropdown(id='dropdown-4', options=drivers_name, className='mb-3')], drivers_name, drivers_name[1], False
+        return [dcc.Dropdown(id='dropdown-4', options=drivers_name, className='mb-3')], drivers_name, drivers_name[
+            1], False
     except:
         return [dcc.Dropdown(id='dropdown-4', options=["None"], className='mb-3')], ["None"], ["None"], False
+
 
 @app.long_callback(
     output=[Output(component_id='bar-graph-matplotlib', component_property="src"),
             Output(component_id='overlaying', component_property="figure")],
     inputs=[Input("button_id", "n_clicks")],
-    state=[State('dropdown-1', 'value'),
-           State('dropdown-2', 'value'),
+    state=[State('dropdown-11', 'value'),
+           State('dropdown-12', 'value'),
            State('dropdown-3', 'value'),
            State('dropdown-4', 'value')],
     running=[
@@ -243,12 +385,34 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
     ],
     cancel=[Input("cancel_button_id", "n_clicks")],
 )
-def plot_data(n_clicks, year, race, driver1, driver2):
-    #n_clicks, year, race, driver1, driver2
+def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
+    # n_clicks, year, race, driver1, driver2
     print("PLOT DATA")
     fig_bar_matplotlib, overlaying = build_comparaison_tab(year, race, driver1, driver2)
     print("Done")
     return fig_bar_matplotlib, overlaying
+
+
+@app.callback(
+    Output(component_id='fastests-laps', component_property="figure"),
+    Output(component_id='positions-laps', component_property="figure"),
+    Output(component_id='teams-speeds', component_property="figure"),
+    Input("dropdown-21", "value"),
+    Input("dropdown-22", "value")
+)
+def plot_data_tab_2(year, race):
+    race_session = fastf1.get_session(year, race, 'R')
+    qualif_session = fastf1.get_session(year, race, 'Q')
+
+    print("PLOT DATA")
+
+    fig_fastest_laps = plot_fastests_laps(qualif_session)
+    fig_positions_laps = plot_positions_laps(race_session)
+    fig_teams_speeds = plot_teams_speeds_laps(race_session)
+
+    print("Done")
+
+    return fig_fastest_laps, fig_positions_laps, fig_teams_speeds
 
 
 @app.callback(
@@ -263,13 +427,14 @@ def plot_data_tab_3(year):
     print("Charging done")
     return fig, fig_by_team
 
+"--------------------------------------------- Code for plots of tab 1 ------------------------------------------------------------"
+
+
 def build_comparaison_tab(year, race, driver1, driver2):
     global session
     global tab_test
     print(tab_test)
     try:
-
-        print(f"BEFORE : Values selected : {year} - {race} - {driver1} - {driver2}")
 
         if race == None:
             _1race = "Bahrain Grand Prix"
@@ -284,7 +449,6 @@ def build_comparaison_tab(year, race, driver1, driver2):
         else:
             _driver2 = driver2
 
-        print(f"AFTER : Values selected : {year} - {_1race} - {_driver1} - {_driver2}")
         year_schedule = ff1.get_event_schedule(year)['EventName']
         indices = [index for index, country in enumerate(year_schedule) if country == _1race]
         _race = year_schedule[indices[0]]
@@ -332,7 +496,7 @@ def build_comparaison_tab(year, race, driver1, driver2):
                 else:
                     who_fastest.append(False)
 
-    # Get telemetry data
+        # Get telemetry data
         x = lap.telemetry['X']  # values for x-axis
         y = lap.telemetry['Y']  # values for y-axis
 
@@ -353,7 +517,8 @@ def build_comparaison_tab(year, race, driver1, driver2):
         ax.plot(lap.telemetry['X'], lap.telemetry['Y'], color='black', linestyle='-', linewidth=16, zorder=0)
         norm = plt.Normalize(0, 1)
         # Set the color based on the mask
-        lc = LineCollection(segments, cmap=mpl.colors.ListedColormap([fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]), norm=norm, linewidth=5)
+        lc = LineCollection(segments, cmap=mpl.colors.ListedColormap(
+            [fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]), norm=norm, linewidth=5)
         lc.set_array(mask)
 
         # Set the values used for colormapping
@@ -367,7 +532,8 @@ def build_comparaison_tab(year, race, driver1, driver2):
         cbaxes = fig.add_axes([0.25, 0.05, 0.5, 0.05])
         normlegend = mpl.colors.Normalize(vmin=0, vmax=1)  # Assuming 'who_fastest' contains True and False values
         legend_labels = [f"Driver {_driver1} Fastest", f"Driver {_driver2} Fastest"]
-        legend = mpl.colorbar.ColorbarBase(cbaxes, norm=normlegend, cmap=mpl.colors.ListedColormap([fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]),
+        legend = mpl.colorbar.ColorbarBase(cbaxes, norm=normlegend, cmap=mpl.colors.ListedColormap(
+            [fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]),
                                            orientation="horizontal", ticks=[0, 1])
         legend.set_ticklabels(legend_labels)
         # Save it to a temporary buffer.
@@ -393,53 +559,141 @@ def build_comparaison_tab(year, race, driver1, driver2):
         fig_bar_matplotlib = f'data:image/png;base64,{fig_data}'
 
         return fig_bar_matplotlib, None
-
 def overlayingSpeed(SESSION_FASTF1, DRIVER1, DRIVER2):
-        fastf1.plotting.setup_mpl(misc_mpl_mods=False)
-        rbr_color = fastf1.plotting.driver_color(DRIVER1)
-        mer_color = fastf1.plotting.driver_color(DRIVER2)
-        session = SESSION_FASTF1
-        ver_lap = session.laps.pick_driver(DRIVER1).pick_fastest()
-        ham_lap = session.laps.pick_driver(DRIVER2).pick_fastest()
-        ver_tel = ver_lap.get_car_data().add_distance()
-        ham_tel = ham_lap.get_car_data().add_distance()
+    fastf1.plotting.setup_mpl(misc_mpl_mods=False)
+    rbr_color = fastf1.plotting.driver_color(DRIVER1)
+    mer_color = fastf1.plotting.driver_color(DRIVER2)
+    session = SESSION_FASTF1
+    ver_lap = session.laps.pick_driver(DRIVER1).pick_fastest()
+    ham_lap = session.laps.pick_driver(DRIVER2).pick_fastest()
+    ver_tel = ver_lap.get_car_data().add_distance()
+    ham_tel = ham_lap.get_car_data().add_distance()
 
-        ver_tel_data = {
-            'Distance': ver_tel['Distance'],
-            'Speed': ver_tel['Speed']
-        }
+    ver_tel_data = {
+        'Distance': ver_tel['Distance'],
+        'Speed': ver_tel['Speed']
+    }
 
-        ham_tel_data = {
-            'Distance': ham_tel['Distance'],
-            'Speed': ham_tel['Speed']
-        }
+    ham_tel_data = {
+        'Distance': ham_tel['Distance'],
+        'Speed': ham_tel['Speed']
+    }
 
-        ver_trace = go.Scatter(
-            x=ver_tel_data['Distance'],
-            y=ver_tel_data['Speed'],
-            mode='lines',
-            name='VER',
-            line=dict(color=rbr_color)
-        )
+    ver_trace = go.Scatter(
+        x=ver_tel_data['Distance'],
+        y=ver_tel_data['Speed'],
+        mode='lines',
+        name=DRIVER1,
+        line=dict(color=rbr_color)
+    )
 
-        ham_trace = go.Scatter(
-            x=ham_tel_data['Distance'],
-            y=ham_tel_data['Speed'],
-            mode='lines',
-            name=DRIVER2,
-            line=dict(color=mer_color)
-        )
+    ham_trace = go.Scatter(
+        x=ham_tel_data['Distance'],
+        y=ham_tel_data['Speed'],
+        mode='lines',
+        name=DRIVER2,
+        line=dict(color=mer_color)
+    )
 
-        layout = go.Layout(
-            title=f"Fastest Lap in Race - Overlaying \n {session.event['EventName']} {session.event.year}",
-            xaxis=dict(title='Distance in m'),
-            yaxis=dict(title='Speed in km/h'),
-            legend=dict(x=0, y=1)
-        )
+    layout = go.Layout(
+        title=f"Fastest Lap in Race - Overlaying \n {session.event['EventName']} {session.event.year}",
+        xaxis=dict(title='Distance in m'),
+        yaxis=dict(title='Speed in km/h'),
+        legend=dict(x=0, y=1)
+    )
 
-        # Create figure and add traces
-        fig = go.Figure(data=[ver_trace, ham_trace], layout=layout)
-        return fig
+    # Create figure and add traces
+    fig = go.Figure(data=[ver_trace, ham_trace], layout=layout)
+    return fig
+
+
+"--------------------------------------------- Code for plots of tab 2 ------------------------------------------------------------"
+
+def plot_fastests_laps(session):
+    # Loading the session data
+    fastf1.plotting.setup_mpl(misc_mpl_mods=False)
+    session.load()
+    # Preparing the data
+    drivers = pd.unique(session.laps['Driver'])
+    list_fastest_laps = [session.laps.pick_driver(drv).pick_fastest() for drv in drivers]
+    fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
+    pole_lap = fastest_laps.pick_fastest()
+    fastest_laps['LapTimeDelta'] = fastest_laps['LapTime'] - pole_lap['LapTime']
+    # Converting LapTimeDelta to a format suitable for plotting
+    fastest_laps['LapTimeDeltaSeconds'] = fastest_laps['LapTimeDelta'].dt.total_seconds()
+
+    # Plotting using Plotly Express
+    fig = px.bar(fastest_laps, y='Driver', x='LapTimeDeltaSeconds', orientation='h',
+                 color='Team', text='LapTimeDeltaSeconds',
+                 title=f"{session.event['EventName']} {session.event.year} Qualifying\n"
+                       f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} ({pole_lap['Driver']})")
+
+    fig.update_layout(yaxis={'categoryorder': 'total descending'})
+    fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
+
+    # Ajout d'une annotation pour le pilote en pole position
+    fig.add_annotation(x=1, y=pole_lap['Driver'],
+                       text=f"Pole position : {pole_lap['Driver'], pole_lap['Team']}",
+                       showarrow=False, font=dict(color='black'))
+    return fig
+def plot_positions_laps(session):
+    session.load(telemetry=False, weather=False)
+
+    # Preparing Data
+    all_laps = pd.DataFrame()
+    for drv in session.drivers:
+        drv_laps = session.laps.pick_driver(drv).copy()
+        drv_laps['Color'] = fastf1.plotting.driver_color(drv_laps['Driver'].iloc[0])
+        all_laps = pd.concat([all_laps, drv_laps])
+
+    # Plotting
+    fig = px.line(all_laps, x='LapNumber', y='Position', color='Driver',
+                  line_group='Driver', color_discrete_sequence=all_laps['Color'].unique(),
+                  labels={'Position': 'Position', 'LapNumber': 'Lap'},
+                  category_orders={"Position": list(range(20, 0, -1))})
+
+    # Customization
+    fig.update_layout(yaxis=dict(autorange="reversed"), title="Driver Positions by Lap")
+    fig.update_traces(mode='lines+markers')
+
+    return fig
+def plot_teams_speeds_laps(session):
+    session.load()
+    laps = session.laps.pick_quicklaps()
+
+    # Preparing Data
+    transformed_laps = laps.copy()
+    transformed_laps.loc[:, "LapTime (s)"] = laps["LapTime"].dt.total_seconds()
+
+    # Team Order and Color Palette
+    team_order = (
+        transformed_laps[["Team", "LapTime (s)"]]
+        .groupby("Team")
+        .median()["LapTime (s)"]
+        .sort_values()
+        .index
+    )
+    team_palette = {team: fastf1.plotting.team_color(team) for team in team_order}
+
+    # Plotting
+    fig = px.box(transformed_laps, x="Team", y="LapTime (s)", category_orders={"Team": team_order},
+                 color="Team", color_discrete_map=team_palette)
+
+    # Customization with More Colors
+    # Customize outliers
+    fig.update_traces(marker=dict(color='black', size=5), line=dict(color='white'))
+    # Customize box and whisker colors
+    for team, color in team_palette.items():
+        fig.update_traces(selector=dict(name=team), line=dict(color=color))
+
+    # Update layout and titles
+    fig.update_layout(title=f"Team speed comparaison by lap : {session.event.year} {session.event['EventName']}", xaxis_title=None,
+                      yaxis_title="Lap Time (s)")
+    return fig
+
+
+"--------------------------------------------- Code for plots of tab 3 ------------------------------------------------------------"
+
 
 def plot_standings_by_driver(SEASON):
     ergast = Ergast()
@@ -505,6 +759,7 @@ def plot_standings_by_driver(SEASON):
     fig.update_layout(xaxis=dict(side='top'))  # x-axis on top
     fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))  # Remove border margins
     return fig
+
 
 def plot_standings_by_teams(Year):
     ergast = Ergast()
@@ -572,4 +827,4 @@ def plot_standings_by_teams(Year):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8080)
+    app.run_server(debug=True, port=8082)
