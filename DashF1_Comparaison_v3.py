@@ -596,7 +596,7 @@ def plot_positions_laps(session):
     fig.update_traces(mode='lines+markers')
 
     return fig
-def plot_teams_speeds_laps(session):
+def plot_teams_speeds_laps(session,year,race):
     session.load()
     laps = session.laps.pick_quicklaps()
 
@@ -626,7 +626,7 @@ def plot_teams_speeds_laps(session):
         fig.update_traces(selector=dict(name=team), line=dict(color=color))
 
     # Update layout and titles
-    fig.update_layout(title="Team speed comparaison by lap : 2023 British Grand Prix", xaxis_title=None,
+    fig.update_layout(title=f"Team speed comparaison by lap : {year} {race}", xaxis_title=None,
                       yaxis_title="Lap Time (s)")
     return fig
 
