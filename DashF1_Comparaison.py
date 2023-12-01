@@ -1,67 +1,35 @@
-import time
-import base64
-import numpy as np
-import pandas as pd
-from io import BytesIO
-from timple.timedelta import strftimedelta
-
 import dash
 from dash import dcc, html
-import dash._callback_context as ctx
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
 from dash.long_callback import DiskcacheLongCallbackManager
-
 import fastf1 as ff1
 import fastf1.plotting
-from fastf1.core import Laps
-from fastf1.ergast import Ergast
-
-import matplotlib  # pip install matplotlib
-
-matplotlib.use('agg')
-
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-from matplotlib.collections import LineCollection
-
-import plotly.express as px
-import plotly.graph_objects as go
-
-## Diskcache
+import matplotlib
+from functions_tab1 import build_comparaison_tab, load_f1_data
+from functions_tab2 import plot_fastests_laps, plot_positions_laps, plot_teams_speeds_laps
+from functions_tab3 import plot_standings_by_teams, plot_standings_by_driver
 import diskcache
 
+"----------------------------------------------- Cache and variables --------------------------------------------------"
+matplotlib.use('agg')
 fastf1.Cache.enable_cache("./cache")
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
 session = None
 tab_test = None
 
+"----------------------------------------------- Charge DATA - only cloud ---------------------------------------------"
+
+data = load_f1_data()
+
+"---------------------------------------------------- Dash - html -----------------------------------------------------"
+
+
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
-
-f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
-additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
-
-modal = dbc.Modal(
-    [
-        dbc.ModalHeader(dbc.ModalTitle("About the Project")),
-        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),  # Add your project information here
-        dbc.ModalFooter(
-            dbc.Button("Close", id="close-modal", className="ms-auto", n_clicks=0)
-        ),
-    ],
-    id="modal",
-    is_open=False,
-)
-
-
 app.layout = dbc.Container([
-    dbc.Row([
-        dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
-        dbc.Col(html.H1("F1 - Telemetry - Project VI", className='mb-2', style={'textAlign': 'center'}), width=7),
-        dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
-    ], align='center', className='mb-4 mt-4'),
+    html.H1("Comparaison", className='mb-2', style={'textAlign': 'center'}),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
@@ -134,30 +102,16 @@ app.layout = dbc.Container([
                         id="loading-overlaying",
                         children=[dcc.Graph(id="overlaying")],
                         type="circle",
-                    ),
+                    )
+                ]),
+                dbc.Col([
                     dcc.Loading(
                         id="loading-bar_graph",
                         children=[html.Img(id='bar-graph-matplotlib')],
                         type="circle",
                     )
                 ])
-            ]),
-            html.Div(
-                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"), id="open-modal", n_clicks=0,
-                           className="rounded-circle custom-hover-button", style={"background-color": "white", "border-color": "black", "border-style": "solid"  }),
-                style={"position": "fixed", "bottom": 20, "left": 20, "width": "50px", "height": "50px"}
-            ),
-            modal,
-            dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
-                    ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
+            ])
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
@@ -210,16 +164,6 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
-            dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
-                    ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
         ]),
         dcc.Tab(label='Classement par course', value='tab-3', children=[
             html.Div([
@@ -255,30 +199,11 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
-            dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
-                    ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
         ]),
     ]),
 ])
 
-@app.callback(
-    Output("modal", "is_open"),
-    [Input("open-modal", "n_clicks"), Input("close-modal", "n_clicks")],
-    [State("modal", "is_open")],
-)
-def toggle_modal(n1, n2, is_open):
-    if n1 or n2:
-        return not is_open
-    return is_open
-
+"------------------------------------------------ Dash - functions ----------------------------------------------------"
 def get_years_selection(selected_year):
     if selected_year is None:
         raise PreventUpdate
@@ -408,7 +333,7 @@ def plot_data_tab_2(year, race):
 
     fig_fastest_laps = plot_fastests_laps(qualif_session)
     fig_positions_laps = plot_positions_laps(race_session)
-    fig_teams_speeds = plot_teams_speeds_laps(race_session)
+    fig_teams_speeds = plot_teams_speeds_laps(race_session, year, race)
 
     print("Done")
 
@@ -427,404 +352,7 @@ def plot_data_tab_3(year):
     print("Charging done")
     return fig, fig_by_team
 
-"--------------------------------------------- Code for plots of tab 1 ------------------------------------------------------------"
 
-
-def build_comparaison_tab(year, race, driver1, driver2):
-    global session
-    global tab_test
-    print(tab_test)
-    try:
-
-        if race == None:
-            _1race = "Bahrain Grand Prix"
-        else:
-            _1race = race
-        if driver1 == None:
-            _driver1 = "VER"
-        else:
-            _driver1 = driver1
-        if driver2 == None:
-            _driver2 = "PER"
-        else:
-            _driver2 = driver2
-
-        year_schedule = ff1.get_event_schedule(year)['EventName']
-        indices = [index for index, country in enumerate(year_schedule) if country == _1race]
-        _race = year_schedule[indices[0]]
-        session = ff1.get_session(year, _1race, "R")
-        session.load(telemetry=True, laps=True, weather=False)
-        lap_driver1 = session.laps.pick_driver(_driver1).pick_fastest()
-        lap_driver2 = session.laps.pick_driver(_driver2).pick_fastest()
-        # Calculate lap times for both drivers
-        lap = lap_driver1
-        lap_time_driver1 = lap_driver1.telemetry['Time'].values
-        lap_time_driver2 = lap_driver2.telemetry['Time'].values
-        who_fastest = []
-
-        if len(lap_time_driver1) < len(lap_time_driver2):
-            # Make lap_time_driver1 the same length as lap_time_driver2
-            lap_time_driver2 = lap_time_driver2[:len(lap_time_driver1)]
-        elif len(lap_time_driver2) < len(lap_time_driver1):
-            # Make lap_time_driver2 the same length as lap_time_driver1
-            lap_time_driver1 = lap_time_driver1[:len(lap_time_driver2)]
-        else:
-            # Both arrays are already of the same length, no modification needed
-            pass
-
-        print(f"Length of the driver {driver1} : {len(lap_time_driver1)}")
-        print(f"Length of the driver {driver2} : {len(lap_time_driver2)}")
-        # Jump 10 laps at a time and compare lap times
-        for i in range(0, len(lap_time_driver1) - 10, 10):
-            lap_time_1_chunk = lap_time_driver1[i + 10] - lap_time_driver1[i]
-            lap_time_2_chunk = lap_time_driver2[i + 10] - lap_time_driver2[i]
-
-            if lap_time_1_chunk < lap_time_2_chunk:
-                for j in range(10):
-                    who_fastest.append(True)
-            else:
-                for j in range(10):
-                    who_fastest.append(False)
-
-        # Check if there are any remaining laps that are not a multiple of 10
-        remaining_laps = len(lap_time_driver1) % 10
-        if remaining_laps > 0:
-            # Compare the remaining laps individually
-            for i in range(len(lap_time_driver1) - remaining_laps, len(lap_time_driver1)):
-                if lap_time_driver1[i] < lap_time_driver2[i]:
-                    who_fastest.append(True)
-                else:
-                    who_fastest.append(False)
-
-        # Get telemetry data
-        x = lap.telemetry['X']  # values for x-axis
-        y = lap.telemetry['Y']  # values for y-axis
-
-        points = np.array([x, y]).T.reshape(-1, 1, 2)
-        segments = np.concatenate([points[:-1], points[1:]], axis=1)
-        # We create a plot with title and adjust some setting to make it look good.
-        fig, ax = plt.subplots(sharex=True, sharey=True, figsize=(12, 6.75))
-        fig.suptitle(f'{_1race} - {year} - {_driver1} vs {_driver2} - Speed', size=24, y=0.97)
-
-        # Adjust margins and turn of axis
-        plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.12)
-        ax.axis('off')
-
-        mask = np.array(who_fastest)  # Repeat each element 10 times for each sector
-
-        # After this, we plot the data itself.
-        # Create background track line
-        ax.plot(lap.telemetry['X'], lap.telemetry['Y'], color='black', linestyle='-', linewidth=16, zorder=0)
-        norm = plt.Normalize(0, 1)
-        # Set the color based on the mask
-        lc = LineCollection(segments, cmap=mpl.colors.ListedColormap(
-            [fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]), norm=norm, linewidth=5)
-        lc.set_array(mask)
-
-        # Set the values used for colormapping
-        lc.set_array(mask)
-
-        # Merge all line segments together
-        line = ax.add_collection(lc)
-
-        # Finally, we create a color bar as a legend.
-        # Create a color bar as a legend.
-        cbaxes = fig.add_axes([0.25, 0.05, 0.5, 0.05])
-        normlegend = mpl.colors.Normalize(vmin=0, vmax=1)  # Assuming 'who_fastest' contains True and False values
-        legend_labels = [f"Driver {_driver1} Fastest", f"Driver {_driver2} Fastest"]
-        legend = mpl.colorbar.ColorbarBase(cbaxes, norm=normlegend, cmap=mpl.colors.ListedColormap(
-            [fastf1.plotting.driver_color(_driver1), fastf1.plotting.driver_color(_driver2)]),
-                                           orientation="horizontal", ticks=[0, 1])
-        legend.set_ticklabels(legend_labels)
-        # Save it to a temporary buffer.
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        # Embed the result in the html output.
-        fig_data = base64.b64encode(buf.getbuffer()).decode("ascii")
-        fig_bar_matplotlib = f'data:image/png;base64,{fig_data}'
-        fig_over = overlayingSpeed(session, _driver1, _driver2)
-        return fig_bar_matplotlib, fig_over
-
-    except Exception as e:
-        # Handle the error here
-        print(f"Error occurred: {e}")
-        # Create an image with the error message
-        buf = BytesIO()
-        fig = plt.figure()
-        plt.text(0.5, 0.5, f"Error: {e}", ha='center', va='center', fontsize=10)
-        plt.axis('off')  # Turn off axis for the error message
-        fig.savefig(buf, format="png")
-        # Embed the result in the html output.
-        fig_data = base64.b64encode(buf.getbuffer()).decode("ascii")
-        fig_bar_matplotlib = f'data:image/png;base64,{fig_data}'
-
-        return fig_bar_matplotlib, None
-def overlayingSpeed(SESSION_FASTF1, DRIVER1, DRIVER2):
-    fastf1.plotting.setup_mpl(misc_mpl_mods=False)
-    rbr_color = fastf1.plotting.driver_color(DRIVER1)
-    mer_color = fastf1.plotting.driver_color(DRIVER2)
-    session = SESSION_FASTF1
-    ver_lap = session.laps.pick_driver(DRIVER1).pick_fastest()
-    ham_lap = session.laps.pick_driver(DRIVER2).pick_fastest()
-    ver_tel = ver_lap.get_car_data().add_distance()
-    ham_tel = ham_lap.get_car_data().add_distance()
-
-    ver_tel_data = {
-        'Distance': ver_tel['Distance'],
-        'Speed': ver_tel['Speed']
-    }
-
-    ham_tel_data = {
-        'Distance': ham_tel['Distance'],
-        'Speed': ham_tel['Speed']
-    }
-
-    ver_trace = go.Scatter(
-        x=ver_tel_data['Distance'],
-        y=ver_tel_data['Speed'],
-        mode='lines',
-        name=DRIVER1,
-        line=dict(color=rbr_color)
-    )
-
-    ham_trace = go.Scatter(
-        x=ham_tel_data['Distance'],
-        y=ham_tel_data['Speed'],
-        mode='lines',
-        name=DRIVER2,
-        line=dict(color=mer_color)
-    )
-
-    layout = go.Layout(
-        title=f"Fastest Lap in Race - Overlaying \n {session.event['EventName']} {session.event.year}",
-        xaxis=dict(title='Distance in m'),
-        yaxis=dict(title='Speed in km/h'),
-        legend=dict(x=0, y=1)
-    )
-
-    # Create figure and add traces
-    fig = go.Figure(data=[ver_trace, ham_trace], layout=layout)
-    return fig
-
-
-"--------------------------------------------- Code for plots of tab 2 ------------------------------------------------------------"
-
-def plot_fastests_laps(session):
-    # Loading the session data
-    fastf1.plotting.setup_mpl(misc_mpl_mods=False)
-    session.load()
-    # Preparing the data
-    drivers = pd.unique(session.laps['Driver'])
-    list_fastest_laps = [session.laps.pick_driver(drv).pick_fastest() for drv in drivers]
-    fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
-    pole_lap = fastest_laps.pick_fastest()
-    fastest_laps['LapTimeDelta'] = fastest_laps['LapTime'] - pole_lap['LapTime']
-    # Converting LapTimeDelta to a format suitable for plotting
-    fastest_laps['LapTimeDeltaSeconds'] = fastest_laps['LapTimeDelta'].dt.total_seconds()
-
-    # Plotting using Plotly Express
-    fig = px.bar(fastest_laps, y='Driver', x='LapTimeDeltaSeconds', orientation='h',
-                 color='Team', text='LapTimeDeltaSeconds',
-                 title=f"{session.event['EventName']} {session.event.year} Qualifying\n"
-                       f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} ({pole_lap['Driver']})")
-
-    fig.update_layout(yaxis={'categoryorder': 'total descending'})
-    fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
-
-    # Ajout d'une annotation pour le pilote en pole position
-    fig.add_annotation(x=1, y=pole_lap['Driver'],
-                       text=f"Pole position : {pole_lap['Driver'], pole_lap['Team']}",
-                       showarrow=False, font=dict(color='black'))
-    return fig
-def plot_positions_laps(session):
-    session.load(telemetry=False, weather=False)
-
-    # Preparing Data
-    all_laps = pd.DataFrame()
-    for drv in session.drivers:
-        drv_laps = session.laps.pick_driver(drv).copy()
-        drv_laps['Color'] = fastf1.plotting.driver_color(drv_laps['Driver'].iloc[0])
-        all_laps = pd.concat([all_laps, drv_laps])
-
-    # Plotting
-    fig = px.line(all_laps, x='LapNumber', y='Position', color='Driver',
-                  line_group='Driver', color_discrete_sequence=all_laps['Color'].unique(),
-                  labels={'Position': 'Position', 'LapNumber': 'Lap'},
-                  category_orders={"Position": list(range(20, 0, -1))})
-
-    # Customization
-    fig.update_layout(yaxis=dict(autorange="reversed"), title="Driver Positions by Lap")
-    fig.update_traces(mode='lines+markers')
-
-    return fig
-def plot_teams_speeds_laps(session):
-    session.load()
-    laps = session.laps.pick_quicklaps()
-
-    # Preparing Data
-    transformed_laps = laps.copy()
-    transformed_laps.loc[:, "LapTime (s)"] = laps["LapTime"].dt.total_seconds()
-
-    # Team Order and Color Palette
-    team_order = (
-        transformed_laps[["Team", "LapTime (s)"]]
-        .groupby("Team")
-        .median()["LapTime (s)"]
-        .sort_values()
-        .index
-    )
-    team_palette = {team: fastf1.plotting.team_color(team) for team in team_order}
-
-    # Plotting
-    fig = px.box(transformed_laps, x="Team", y="LapTime (s)", category_orders={"Team": team_order},
-                 color="Team", color_discrete_map=team_palette)
-
-    # Customization with More Colors
-    # Customize outliers
-    fig.update_traces(marker=dict(color='black', size=5), line=dict(color='white'))
-    # Customize box and whisker colors
-    for team, color in team_palette.items():
-        fig.update_traces(selector=dict(name=team), line=dict(color=color))
-
-    # Update layout and titles
-    fig.update_layout(title=f"Team speed comparaison by lap : {session.event.year} {session.event['EventName']}", xaxis_title=None,
-                      yaxis_title="Lap Time (s)")
-    return fig
-
-
-"--------------------------------------------- Code for plots of tab 3 ------------------------------------------------------------"
-
-
-def plot_standings_by_driver(SEASON):
-    ergast = Ergast()
-    races = ergast.get_race_schedule(SEASON)  # Races in year 2022
-    results = []
-    for rnd, race in races['raceName'].items():
-        print(f"Drivers : Race : {race}")
-        # Get results. Note that we use the round no. + 1, because the round no.
-        # starts from one (1) instead of zero (0)
-        temp = ergast.get_race_results(season=SEASON, round=rnd + 1)
-        if len(temp.content) < 1:
-            break
-        else:
-            temp = temp.content[0]
-
-        # If there is a sprint, get the results as well
-        sprint = ergast.get_sprint_results(season=SEASON, round=rnd + 1)
-        if sprint.content and sprint.description['round'][0] == rnd + 1:
-            temp = pd.merge(temp, sprint.content[0], on='driverCode', how='left')
-            # Add sprint points and race points to get the total
-            temp['points'] = temp['points_x'] + temp['points_y']
-            temp.drop(columns=['points_x', 'points_y'], inplace=True)
-
-        # Add round no. and grand prix name
-        temp['round'] = rnd + 1
-        temp['race'] = race.removesuffix(' Grand Prix')
-        temp = temp[['round', 'race', 'driverCode', 'points']]  # Keep useful cols.
-        results.append(temp)
-
-    # Append all races into a single dataframe
-    results = pd.concat(results)
-    races = results['race'].drop_duplicates()
-    results = results.pivot(index='driverCode', columns='round', values='points')
-    # Rank the drivers by their total points
-    results['total_points'] = results.sum(axis=1)
-    results = results.sort_values(by='total_points', ascending=False)
-    results.drop(columns='total_points', inplace=True)
-
-    # Use race name, instead of round no., as column names
-    results.columns = races
-    fig = px.imshow(
-        results,
-        text_auto=True,
-        aspect='auto',  # Automatically adjust the aspect ratio
-        color_continuous_scale=[[0, 'rgb(198, 219, 239)'],  # Blue scale
-                                [0.25, 'rgb(107, 174, 214)'],
-                                [0.5, 'rgb(33,  113, 181)'],
-                                [0.75, 'rgb(8,   81,  156)'],
-                                [1, 'rgb(8,   48,  107)']],
-        labels={'x': 'Race',
-                'y': 'Driver',
-                'color': 'Points'}  # Change hover texts
-    )
-    fig.update_xaxes(title_text='')  # Remove axis titles
-    fig.update_yaxes(title_text='')
-    fig.update_yaxes(tickmode='linear')  # Show all ticks, i.e. driver names
-    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGrey',
-                     showline=False,
-                     tickson='boundaries')  # Show horizontal grid only
-    fig.update_xaxes(showgrid=False, showline=False)  # And remove vertical grid
-    fig.update_layout(plot_bgcolor='rgba(0,0,0,0)')  # White background
-    fig.update_layout(coloraxis_showscale=False)  # Remove legend
-    fig.update_layout(xaxis=dict(side='top'))  # x-axis on top
-    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))  # Remove border margins
-    return fig
-
-
-def plot_standings_by_teams(Year):
-    ergast = Ergast()
-    races = ergast.get_race_schedule(Year)  # Races in year 2022
-    results = []
-    for rnd, race in races['raceName'].items():
-        print("Teams : Race name ", race)
-        # Get results. Note that we use the round no. + 1, because the round no.
-        # starts from one (1) instead of zero (0)
-        temp = ergast.get_race_results(season=Year, round=rnd + 1)
-        if len(temp.content) < 1:
-            break
-        else:
-            temp = temp.content[0]
-
-        # If there is a sprint, get the results as well
-        sprint = ergast.get_sprint_results(season=Year, round=rnd + 1)
-        if sprint.content and sprint.description['round'][0] == rnd + 1:
-            temp = pd.merge(temp, sprint.content[0], on='constructorName', how='left')
-            # Add sprint points and race points to get the total
-            temp['points'] = temp['points_x'] + temp['points_y']
-            temp.drop(columns=['points_x', 'points_y'], inplace=True)
-
-        # Add round no. and grand prix name
-        temp['round'] = rnd + 1
-        temp['race'] = race.removesuffix(' Grand Prix')
-        temp = temp[['round', 'race', 'constructorName', 'points']]  # Keep useful cols.
-        results.append(temp)
-    results = pd.concat(results)
-    races = results['race'].drop_duplicates()
-    test = results.groupby(["round", "race", "constructorName"]).sum().reset_index()
-    results = test.pivot(index='constructorName', columns='race', values='points')
-    results['total_points'] = results.sum(axis=1)
-    results = results.sort_values(by='total_points', ascending=False)
-    results.drop(columns='total_points', inplace=True)
-
-    # Use race name, instead of round no., as column names
-    results.columns = races
-    # Assuming 'results' is your data, replace it with your actual dat
-    fig = px.imshow(
-        results,
-        text_auto=True,
-        aspect='auto',  # Automatically adjust the aspect ratio
-        color_continuous_scale=[[0, 'rgb(198, 219, 239)'],  # Blue scale
-                                [0.25, 'rgb(107, 174, 214)'],
-                                [0.5, 'rgb(33,  113, 181)'],
-                                [0.75, 'rgb(8,   81,  156)'],
-                                [1, 'rgb(8,   48,  107)']],
-        labels={'x': 'Race',
-                'y': 'Driver',
-                'color': 'Points'}  # Change hover texts
-    )
-    fig.update_xaxes(title_text='')  # Remove axis titles
-    fig.update_yaxes(title_text='')
-    fig.update_yaxes(tickmode='linear')  # Show all ticks, i.e. driver names
-    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGrey',
-                     showline=False,
-                     tickson='boundaries')  # Show horizontal grid only
-    fig.update_xaxes(showgrid=False, showline=False)  # And remove vertical grid
-    fig.update_layout(plot_bgcolor='rgba(0,0,0,0)')  # White background
-    fig.update_layout(coloraxis_showscale=False)  # Remove legend
-    fig.update_layout(xaxis=dict(side='top'))  # x-axis on top
-    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))  # Remove border margins
-    return fig
-
-
+"---------------------------------------------- Launch Application ----------------------------------------------------"
 if __name__ == '__main__':
     app.run_server(debug=True, port=8082)
