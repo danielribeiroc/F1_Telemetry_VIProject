@@ -233,7 +233,7 @@ def update_dropdown_12(selected_year):
 )
 def update_dropdown_22(selected_year):
     tab_countries = get_years_selection(selected_year)
-    return [dcc.Dropdown(id='dropdown-22', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
+    return [dcc.Dropdown(id='dropdown-22', options=tab_countries, className='mb-3')], tab_countries, tab_countries[10]
 
 
 @app.callback(
@@ -322,14 +322,11 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
 )
 
 def plot_data_tab_2(year, race):
-    race_session = fastf1.get_session(year, race, 'R')
-    qualif_session = fastf1.get_session(year, race, 'Q')
-
     print("PLOT DATA")
 
-    fig_fastest_laps = plot_fastests_laps(qualif_session)
-    fig_positions_laps = plot_positions_laps(race_session)
-    fig_teams_speeds = plot_teams_speeds_laps(race_session, year, race)
+    fig_fastest_laps = plot_fastests_laps(year, race)
+    fig_positions_laps = plot_positions_laps(year, race)
+    fig_teams_speeds = plot_teams_speeds_laps(year, race)
 
     print("Done")
 

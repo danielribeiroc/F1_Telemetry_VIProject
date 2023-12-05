@@ -5,7 +5,8 @@ from fastf1.core import Laps
 import plotly.express as px
 
 
-def plot_fastests_laps(session):
+def plot_fastests_laps(YEAR, RACE):
+    session = fastf1.get_session(YEAR, RACE, 'Q')
     # Loading the session data
     fastf1.plotting.setup_mpl(misc_mpl_mods=False)
     session.load()
@@ -40,15 +41,32 @@ def plot_fastests_laps(session):
     return fig
 
 
-def plot_positions_laps(session):
+def plot_positions_laps(YEAR, RACE):
+    session = fastf1.get_session(YEAR, RACE, 'R')
     session.load(telemetry=False, weather=False)
 
     # Preparing Data
     all_laps = pd.DataFrame()
+    print(f"Number total of drivers {len(session.drivers)}")
     for drv in session.drivers:
         drv_laps = session.laps.pick_driver(drv).copy()
-        drv_laps['Color'] = fastf1.plotting.driver_color(drv_laps['Driver'].iloc[0])
-        all_laps = pd.concat([all_laps, drv_laps])
+        print("----------------------------------------------")
+        print(drv)
+        print(session.get_driver(drv)["Abbreviation"])
+        try:
+            driver_color = fastf1.plotting.driver_color(session.get_driver(drv)["Abbreviation"])
+            if driver_color:
+                print(driver_color)
+                drv_laps['Color'] = driver_color
+            else:
+                print("No color assigned for this driver.")
+                drv_laps['Color'] = fastf1.plotting.team_color(session)  # Assign a default color
+            all_laps = pd.concat([all_laps, drv_laps])
+        except Exception as e:
+            print(f"Error encountered: {e}")
+            # Handle the error or assign a default color
+            drv_laps['Color'] = "#ffffff"
+            all_laps = pd.concat([all_laps, drv_laps])
 
     # Plotting
     fig = px.line(all_laps, x='LapNumber', y='Position', color='Driver',
@@ -59,13 +77,10 @@ def plot_positions_laps(session):
     # Customization
     fig.update_layout(yaxis=dict(autorange="reversed"), title="Driver Positions by Lap")
     fig.update_traces(mode='lines+markers')
-
     return fig
 
-
-
-
-def plot_teams_speeds_laps(session,year,race):
+def plot_teams_speeds_laps(YEAR, RACE):
+    session = fastf1.get_session(YEAR, RACE, 'R')
     session.load()
     laps = session.laps.pick_quicklaps()
 
@@ -95,6 +110,6 @@ def plot_teams_speeds_laps(session,year,race):
         fig.update_traces(selector=dict(name=team), line=dict(color=color))
 
     # Update layout and titles
-    fig.update_layout(title=f"Team speed comparaison by lap : {year} {race}", xaxis_title=None,
+    fig.update_layout(title=f"Team speed comparaison by lap : {YEAR} {RACE}", xaxis_title=None,
                       yaxis_title="Lap Time (s)")
     return fig
