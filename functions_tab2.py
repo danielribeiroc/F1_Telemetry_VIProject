@@ -3,33 +3,43 @@ from timple.timedelta import strftimedelta
 import fastf1.plotting
 from fastf1.core import Laps
 import plotly.express as px
+
+
 def plot_fastests_laps(session):
     # Loading the session data
     fastf1.plotting.setup_mpl(misc_mpl_mods=False)
     session.load()
+
     # Preparing the data
     drivers = pd.unique(session.laps['Driver'])
     list_fastest_laps = [session.laps.pick_driver(drv).pick_fastest() for drv in drivers]
     fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
     pole_lap = fastest_laps.pick_fastest()
     fastest_laps['LapTimeDelta'] = fastest_laps['LapTime'] - pole_lap['LapTime']
-    # Converting LapTimeDelta to a format suitable for plotting
     fastest_laps['LapTimeDeltaSeconds'] = fastest_laps['LapTimeDelta'].dt.total_seconds()
 
-    # Plotting using Plotly Express
+    # Adding team colors directly within the main function
+    fastest_laps['Color'] = fastest_laps['Team'].apply(fastf1.plotting.team_color)
+
+    # Plotting
     fig = px.bar(fastest_laps, y='Driver', x='LapTimeDeltaSeconds', orientation='h',
-                 color='Team', text='LapTimeDeltaSeconds',
+                 color='Team',
+                 color_discrete_map={team: color for team, color in zip(fastest_laps['Team'], fastest_laps['Color'])},
+                 text='LapTimeDeltaSeconds',
                  title=f"{session.event['EventName']} {session.event.year} Qualifying\n"
                        f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} ({pole_lap['Driver']})")
 
-    fig.update_layout(yaxis={'categoryorder': 'total descending'})
+    fig.update_layout(yaxis={'categoryorder': 'total descending', 'dtick': 1}, legend_title_text='Team Colors')
     fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
 
-    # Ajout d'une annotation pour le pilote en pole position
-    fig.add_annotation(x=1, y=pole_lap['Driver'],
+    # Annotation for the pole position
+    fig.add_annotation(x=0.6, y=pole_lap['Driver'],
                        text=f"Pole position : {pole_lap['Driver'], pole_lap['Team']}",
                        showarrow=False, font=dict(color='black'))
+
     return fig
+
+
 def plot_positions_laps(session):
     session.load(telemetry=False, weather=False)
 
@@ -51,6 +61,10 @@ def plot_positions_laps(session):
     fig.update_traces(mode='lines+markers')
 
     return fig
+
+
+
+
 def plot_teams_speeds_laps(session,year,race):
     session.load()
     laps = session.laps.pick_quicklaps()

@@ -320,6 +320,7 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
     Input("dropdown-21", "value"),
     Input("dropdown-22", "value")
 )
+
 def plot_data_tab_2(year, race):
     race_session = fastf1.get_session(year, race, 'R')
     qualif_session = fastf1.get_session(year, race, 'Q')
