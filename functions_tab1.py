@@ -11,6 +11,7 @@ import plotly.graph_objects as go
 
 session = None
 tab_test = None
+data_loaded = False
 
 def load_f1_data(start_year=2019): # this step will take a certain time to end and will only be executed one time in the cloud
     global data_loaded
