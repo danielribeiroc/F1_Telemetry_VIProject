@@ -19,17 +19,33 @@ cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
 session = None
 tab_test = None
-
+f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png"
+additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
 "----------------------------------------------- Charge DATA - only cloud ---------------------------------------------"
 
-data = load_f1_data()
+#data = load_f1_data()
 
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
 
+modal = dbc.Modal(
+    [
+        dbc.ModalHeader(dbc.ModalTitle("About the Project")),
+        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),  # Add your project information here
+        dbc.ModalFooter(
+            dbc.Button("Close", id="close-modal", className="ms-auto", n_clicks=0)
+        ),
+    ],
+    id="modal",
+    is_open=False,
+)
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
 app.layout = dbc.Container([
-    html.H1("Comparaison", className='mb-2', style={'textAlign': 'center'}),
+    dbc.Row([
+        dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
+        dbc.Col(html.H1("F1 - Telemetry - Project VI", className='mb-2', style={'textAlign': 'center'}), width=7),
+        dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
+    ], align='center', className='mb-4 mt-4'),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
@@ -111,7 +127,23 @@ app.layout = dbc.Container([
                         type="circle",
                     )
                 ])
-            ])
+            ]),
+            html.Div(
+                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"), id="open-modal", n_clicks=0,
+                           className="rounded-circle custom-hover-button", style={"background-color": "white", "border-color": "black", "border-style": "solid"  }),
+                style={"position": "fixed", "bottom": 20, "left": 20, "width": "50px", "height": "50px"}
+            ),
+            modal,
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
@@ -164,6 +196,16 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
         dcc.Tab(label='Classement par course', value='tab-3', children=[
             html.Div([
@@ -199,6 +241,16 @@ app.layout = dbc.Container([
             dbc.Row([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
+            dbc.Row(
+                    dbc.Col(
+                        html.Footer(
+                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                            className="text-center text-muted"
+                        ),
+                        width=12
+                    ),
+                    className='mt-5'  # Adds top margin to the footer row
+                )
         ]),
     ]),
 ])
@@ -217,6 +269,15 @@ def get_years_selection(selected_year):
     # [{'label': list[i], 'value': i} for i in range(len(list))]
     return tab_countries
 
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open-modal", "n_clicks"), Input("close-modal", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
 
 @app.callback(
     Output('loading-dropdown-12', 'children'),
@@ -326,14 +387,11 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
     Input("dropdown-22", "value")
 )
 def plot_data_tab_2(year, race):
-    race_session = fastf1.get_session(year, race, 'R')
-    qualif_session = fastf1.get_session(year, race, 'Q')
-
     print("PLOT DATA")
 
-    fig_fastest_laps = plot_fastests_laps(qualif_session)
-    fig_positions_laps = plot_positions_laps(race_session)
-    fig_teams_speeds = plot_teams_speeds_laps(race_session, year, race)
+    fig_fastest_laps = plot_fastests_laps(year, race)
+    fig_positions_laps = plot_positions_laps(year, race)
+    fig_teams_speeds = plot_teams_speeds_laps(year, race)
 
     print("Done")
 
