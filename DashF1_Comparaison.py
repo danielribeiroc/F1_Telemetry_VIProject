@@ -113,14 +113,14 @@ app.layout = dbc.Container([
                 dbc.Col([html.Button(id="cancel_button_id", children="Interrompre le processus")])
             ]),
             dbc.Row([
-                dbc.Col([
+                dbc.Row([
                     dcc.Loading(
                         id="loading-overlaying",
                         children=[dcc.Graph(id="overlaying")],
                         type="circle",
                     )
                 ]),
-                dbc.Col([
+                dbc.Row([
                     dcc.Loading(
                         id="loading-bar_graph",
                         children=[html.Img(id='bar-graph-matplotlib')],
@@ -287,7 +287,6 @@ def toggle_modal(n1, n2, is_open):
 )
 def update_dropdown_12(selected_year):
     tab_countries = get_years_selection(selected_year)
-    # [{'label': list[i], 'value': i} for i in range(len(list))]
     return [dcc.Dropdown(id='dropdown-12', options=tab_countries, className='mb-3')], tab_countries, tab_countries[1]
 
 
