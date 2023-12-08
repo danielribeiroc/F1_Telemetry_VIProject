@@ -19,24 +19,33 @@ def plot_fastests_laps(YEAR, RACE):
     fastest_laps['LapTimeDelta'] = fastest_laps['LapTime'] - pole_lap['LapTime']
     fastest_laps['LapTimeDeltaSeconds'] = fastest_laps['LapTimeDelta'].dt.total_seconds()
 
+    def get_team_color(team):
+        try:
+            return fastf1.plotting.team_color(team)
+        except:
+            return '#000000'
+
     # Adding team colors directly within the main function
-    fastest_laps['Color'] = fastest_laps['Team'].apply(fastf1.plotting.team_color)
+    fastest_laps['Color'] = fastest_laps['Team'].apply(get_team_color)
 
     # Plotting
     fig = px.bar(fastest_laps, y='Driver', x='LapTimeDeltaSeconds', orientation='h',
                  color='Team',
                  color_discrete_map={team: color for team, color in zip(fastest_laps['Team'], fastest_laps['Color'])},
                  text='LapTimeDeltaSeconds',
-                 title=f"{session.event['EventName']} {session.event.year} Qualifying\n"
-                       f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} ({pole_lap['Driver']})")
+                 title=f"{session.event['EventName']} {session.event.year} Qualifying")
+
+    fig.add_annotation(
+        text=f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} {pole_lap['Driver'], pole_lap['Team']}",
+        xref="paper", yref="paper",
+        x=-0.01, y=1.15,
+        showarrow=False,
+        font=dict(size=14),
+        align="left"
+    )
 
     fig.update_layout(yaxis={'categoryorder': 'total descending', 'dtick': 1}, legend_title_text='Team Colors')
     fig.update_traces(texttemplate='%{text:.2f}', textposition='outside')
-
-    # Annotation for the pole position
-    fig.add_annotation(x=0.6, y=pole_lap['Driver'],
-                       text=f"Pole position : {pole_lap['Driver'], pole_lap['Team']}",
-                       showarrow=False, font=dict(color='black'))
 
     return fig
 
