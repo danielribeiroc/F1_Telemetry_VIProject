@@ -32,8 +32,11 @@ additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineerin
 "----------------------- Modal vue --------------------------------"
 modal = dbc.Modal(
     [
-        dbc.ModalHeader(dbc.ModalTitle("About the Project")),
-        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),
+        dbc.ModalHeader(dbc.ModalTitle("A propos du projet")),
+        dbc.ModalBody([
+            html.A("Ce projet a été créé en utilisant la librairie FastF1, une ressource dédiée à la fourniture de données et d'analyses pour la Formule 1. Pour plus d'informations, veuillez consulter la documentation officielle : https://docs.fastf1.dev/"),
+            html.P("Cette démonstration illustre l'interaction avec les graphiques. Un clic sur une légende permet de masquer ou d'afficher la variable correspondante. Un double-clic sur une légende masquera toutes les autres variables, permettant une analyse focalisée sur une variable spécifique.")
+        ]),
         html.Div(children=[
             html.Video(
                 controls=True,
@@ -65,16 +68,24 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_call
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(html.Img(src=f1_logo_path, height="50px"), width=2, align='center'),
-        dbc.Col(html.H1("F1 - Telemetry - Project VI", className='mb-2', style={'textAlign': 'center'}), width=7),
+        dbc.Col(html.H1("Project VI : F1 - Telemetry", className='mb-2', style={'textAlign': 'center'}), width=7),
         dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
     ], align='center', className='mb-4 mt-4'),
+    html.Div([
+        html.P(
+            "Bienvenue sur la page web F1 Telemetry. Cette interface vise à fournir aux spectateurs de F1 des statistiques détaillées sur les courses, les pilotes, ainsi que les écuries. Pour une démonstration sur l'utilisation des graphiques interactifs, veuillez cliquer sur le bouton d'information situé en bas à gauche."),
+        html.P(
+            "Trois onglets ont été créés, chacun se concentrant sur des thèmes distincts pour une exploration approfondie des données de la Formule 1."),
+        html.P(
+            "N'hésitez pas à explorer ces onglets pour une expérience complète et immersive des statistiques et analyses de la F1.")
+    ]),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
                 html.Br(),
                 html.H3('Vue comparaison entre 2 pilotes', style={'margin-top': '10px'}),
                 html.P(
-                    "Dans cet onglet, les utilisateurs ont la possibilité de comparer les performances de deux pilotes lors d'une course spécifique. n cas d'erreur ou de problème lors du "
+                    "Dans cet onglet, les utilisateurs ont la possibilité de comparer les performances de deux pilotes lors d'une course spécifique. En cas d'erreur ou de problème lors du "
                     "chargement des données ou du traitement des informations, un message d'erreur explicite est affiché pour informer l'utilisateur de la situation, garantissant ainsi une expérience utilisateur transparente et informative.",
                     style={'margin-top': '10px'}),
                 html.Br(),
@@ -169,9 +180,9 @@ app.layout = dbc.Container([
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
-                html.H3('Dynamique des courses et analyse des résultats des équipes', style={'margin-top': '10px'}),
+                html.H3('Analyse Dynamique et Résultats des Équipes durant les Courses', style={'margin-top': '10px'}),
                 html.P(
-                    'Sous cet onglet nous avons un premier graphique qui permet de voir les différences de temps pour toute la course entre tous les pilotes, l\'évolution du classement durant la course pour chaque pilote et enfin des une booîte à moustache nous indiquant les statistiques pour chaque écurie concernant le temps pour chaque tour')
+                    "Cette section analyse les performances en course des pilotes et équipes avec un graphique montrant les écarts de temps et une boîte à moustaches pour les statistiques clés de chaque écurie, comme le temps moyen par tour, offrant ainsi une vue détaillée de la dynamique de course et des stratégies d'équipe.")
             ]),
             dbc.Row([
                 dbc.Col([

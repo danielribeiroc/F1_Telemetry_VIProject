@@ -18,7 +18,7 @@ fastf1.Cache.enable_cache("./cache")
 cache = diskcache.Cache("./cache")
 long_callback_manager = DiskcacheLongCallbackManager(cache)
 session = None
-tab_test = None
+#tab_test = None
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
 
 
@@ -246,7 +246,7 @@ def update_dropdown_22(selected_year):
 )
 def update_dropdown_3(selected_year, selected_race):
     global session
-    global tab_test
+    #global tab_test
     if selected_race is None:
         raise PreventUpdate
 

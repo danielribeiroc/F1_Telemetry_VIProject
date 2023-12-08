@@ -14,6 +14,7 @@ def plot_fastests_laps(YEAR, RACE):
     # Preparing the data
     drivers = pd.unique(session.laps['Driver'])
     list_fastest_laps = [session.laps.pick_driver(drv).pick_fastest() for drv in drivers]
+    print(list_fastest_laps)
     fastest_laps = Laps(list_fastest_laps).sort_values(by='LapTime').reset_index(drop=True)
     pole_lap = fastest_laps.pick_fastest()
     fastest_laps['LapTimeDelta'] = fastest_laps['LapTime'] - pole_lap['LapTime']
@@ -27,16 +28,17 @@ def plot_fastests_laps(YEAR, RACE):
 
     # Adding team colors directly within the main function
     fastest_laps['Color'] = fastest_laps['Team'].apply(get_team_color)
+    print(fastest_laps)
 
     # Plotting
     fig = px.bar(fastest_laps, y='Driver', x='LapTimeDeltaSeconds', orientation='h',
                  color='Team',
                  color_discrete_map={team: color for team, color in zip(fastest_laps['Team'], fastest_laps['Color'])},
                  text='LapTimeDeltaSeconds',
-                 title=f"{session.event['EventName']} {session.event.year} Qualifying")
+                 title=f"{session.event['EventName']} {session.event.year} Qualifications")
 
     fig.add_annotation(
-        text=f"Fastest Lap: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} {pole_lap['Driver'], pole_lap['Team']}",
+        text=f"Tour le plus rapide: {strftimedelta(pole_lap['LapTime'], '%m:%s.%ms')} {pole_lap['Driver'], pole_lap['Team']}",
         xref="paper", yref="paper",
         x=-0.01, y=1.15,
         showarrow=False,
@@ -84,7 +86,7 @@ def plot_positions_laps(YEAR, RACE):
                   category_orders={"Position": list(range(20, 0, -1))})
 
     # Customization
-    fig.update_layout(yaxis=dict(autorange="reversed"), title="Driver Positions by Lap")
+    fig.update_layout(yaxis=dict(autorange="reversed"), title=f"{session.event['EventName']} {session.event.year} Course")
     fig.update_traces(mode='lines+markers')
     return fig
 
@@ -119,6 +121,6 @@ def plot_teams_speeds_laps(YEAR, RACE):
         fig.update_traces(selector=dict(name=team), line=dict(color=color))
 
     # Update layout and titles
-    fig.update_layout(title=f"Team speed comparaison by lap : {YEAR} {RACE}", xaxis_title=None,
+    fig.update_layout(title=f"{session.event['EventName']} {session.event.year} Course", xaxis_title=None,
                       yaxis_title="Lap Time (s)")
     return fig

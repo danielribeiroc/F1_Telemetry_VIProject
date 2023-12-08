@@ -10,7 +10,10 @@ import matplotlib
 from functions_tab1 import build_comparaison_tab
 from functions_tab2 import plot_fastests_laps, plot_positions_laps, plot_teams_speeds_laps
 from functions_tab3 import plot_standings_by_teams, plot_standings_by_driver
+from flask import Flask, send_from_directory
 import diskcache
+import os
+
 
 "----------------------------------------------- Cache and variables --------------------------------------------------"
 matplotlib.use('agg')
@@ -21,10 +24,20 @@ session = None
 tab_test = None
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
 
-
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
+
+
 app.layout = dbc.Container([
-    html.H1("Comparaison", className='mb-2', style={'textAlign': 'center'}),
+    html.H1("F1 Telemetry", className='mb-2', style={'textAlign': 'center'}),
+    html.P("Bienvenue sur la page web F1 Telemetry. Cette interface vise à fournir aux spectacteurs de F1 des statistisques détaillés les courses, les pilotes ainsi que les écuries. Trois Tabs ont été créés à cet effet en ayant chacun des thèmes différents. Juste en-dessous de ce textedes vidéos démonstratives ont été placées afin que vous puissiez voir toutes les interactions possibles avec les graphiques."),
+    html.Div([
+       html.Video(
+            id='video-player',
+            src='assets/f1_telemetry_tuto_480.mp4',
+            controls=True,
+            preload='auto'
+        )
+    ]),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
             html.Div([
@@ -111,6 +124,7 @@ app.layout = dbc.Container([
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
                 html.H3('Dynamique des courses et analyse des résultats des équipes', style={'margin-top': '10px'}),
+                html.Button('Afficher/Masquer le Texte', id='toggle-button'),
                 html.P(
                     'Sous cet onglet nous avons un premier graphique qui permet de voir les différences de temps pour toute la course entre tous les pilotes, l\'évolution du classement durant la course pour chaque pilote et enfin des une booîte à moustache nous indiquant les statistiques pour chaque écurie concernant le temps pour chaque tour')
             ]),
