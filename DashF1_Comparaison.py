@@ -27,17 +27,27 @@ additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineerin
 
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
 
+
+
+"----------------------- Modal vue --------------------------------"
 modal = dbc.Modal(
     [
         dbc.ModalHeader(dbc.ModalTitle("About the Project")),
-        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),  # Add your project information here
+        dbc.ModalBody("This project was created with the FastF1 Library : https://docs.fastf1.dev/"),
         html.Div(children=[
             html.Video(
                 controls=True,
                 id='movie_player',
                 src='./assets/f1_telemetry_tuto_720.mp4',
                 autoPlay=False,
-                style={"width": "100%", "height": "auto", "maxWidth": "100%", "maxHeight": "100%"}  # Adjust these values as needed
+                style={
+                    "width": "100%",
+                    "height": "auto",
+                    "maxWidth": "100%",
+                    "maxHeight": "100%",
+                    "padding": "10px",
+                    "borderRadius": "15px"
+                }
             ),
         ]),
         dbc.ModalFooter(
@@ -46,8 +56,9 @@ modal = dbc.Modal(
     ],
     id="modal",
     is_open=False,
-    size="lg"  # Adjust the modal size here
+    size="lg"
 )
+"--------------------------------------------------------------------------"
 
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
