@@ -445,4 +445,5 @@ def plot_data_tab_3(year):
 
 "---------------------------------------------- Launch Application ----------------------------------------------------"
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8082)
+    print("Starting Server !")
+    app.run_server(debug=True, host='0.0.0.0', port=9000)

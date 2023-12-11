@@ -1,13 +1,14 @@
-FROM python:3.10-alpine
+FROM python:3.10
 
 WORKDIR /app
 COPY . /app
 
-RUN apk add --no-cache gcc musl-dev linux-headers libffi-dev jpeg-dev zlib-dev
+RUN mkdir cache
+
+RUN pip install --upgrade cython
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-EXPOSE 8082
+EXPOSE 8080
 
-ENV NAME World
-
-CMD ["python", "./DashF1_Comparaison_v3.py"]
+CMD ["python3", "./DashF1_Comparaison.py"]

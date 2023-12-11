@@ -6,3 +6,6 @@ timple
 dash
 diskcache
 matplotlib
+dash_bootstrap_components
+psutil
+dash[diskcache]
