@@ -3,6 +3,12 @@
 - Ruben Terceiro
 - Daniel Ribeiro Cabral
 
+# Launch Dockerfile
+
+ - `docker build -t f1_app .`
+ - `docker run -h localhost -p 9002:9000 -d --name f1_app_container f1_app`
+ - `localhost:9002`
+
 ## Description projet - Ma_VI_Master_Engineering - Data Science
 
 **Public cible** : Fournir des indications sur les principales statistiques pour chaque course de F1 afin de pouvoir avoir une meilleure vue global du week-end.
