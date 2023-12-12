@@ -7,6 +7,7 @@ from dash.long_callback import DiskcacheLongCallbackManager
 import fastf1 as ff1
 import fastf1.plotting
 import matplotlib
+import plotly.graph_objects as go
 from functions_tab1 import build_comparaison_tab, load_f1_data
 from functions_tab2 import plot_fastests_laps, plot_positions_laps, plot_teams_speeds_laps
 from functions_tab3 import plot_standings_by_teams, plot_standings_by_driver
@@ -32,8 +33,12 @@ modal = dbc.Modal(
     [
         dbc.ModalHeader(dbc.ModalTitle("A propos du projet")),
         dbc.ModalBody([
-            html.A(
-                "Ce projet a été créé en utilisant la librairie FastF1, une ressource dédiée à la fourniture de données et d'analyses pour la Formule 1. Pour plus d'informations, veuillez consulter la documentation officielle : https://docs.fastf1.dev/"),
+            html.P(
+                "Ce projet a été créé en utilisant la librairie FastF1, une ressource dédiée à la fourniture de données et d'analyses pour la Formule 1."),
+            html.P([
+                "Pour plus d'informations, veuillez consulter la documentation officielle : ",
+                html.A("https://docs.fastf1.dev/", href="https://docs.fastf1.dev/", target="_blank")
+            ]),
             html.P(
                 "Cette démonstration illustre l'interaction avec les graphiques. Un clic sur une légende permet de masquer ou d'afficher la variable correspondante. Un double-clic sur une légende masquera toutes les autres variables, permettant une analyse focalisée sur une variable spécifique.")
         ]),
@@ -71,12 +76,20 @@ app.layout = dbc.Container([
         dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
     ], align='center', className='mb-4 mt-4'),
     html.Div([
-        html.P(
-            "Bienvenue sur la page web F1 Telemetry. Cette interface vise à fournir aux spectateurs de F1 des statistiques détaillées sur les courses, les pilotes, ainsi que les écuries. Pour une démonstration sur l'utilisation des graphiques interactifs, veuillez cliquer sur le bouton d'information situé en bas à gauche."),
-        html.P(
-            "Trois onglets ont été créés, chacun se concentrant sur des thèmes distincts pour une exploration approfondie des données de la Formule 1."),
-        html.P(
-            "N'hésitez pas à explorer ces onglets pour une expérience complète et immersive des statistiques et analyses de la F1.")
+        dbc.Button("▼", id="toggle-text-button", color="black", className="mb-3"),
+        dbc.Collapse(
+            html.Div(id="text-content", children=[
+                html.P(
+                    "Bienvenue sur la page web F1 - Telemetry."),
+                html.P(
+                    " Cette interface vise à fournir aux spectateurs de F1 des statistiques détaillées sur les courses, les pilotes, ainsi que les écuries. Pour une démonstration sur l'utilisation des graphiques interactifs, veuillez cliquer sur le bouton d'information situé en bas à gauche."),
+                html.P(
+                    "Trois onglets ont été créés, chacun se concentrant sur des thèmes distincts pour une exploration approfondie des données de la Formule 1."),
+                html.P(
+                    "N'hésitez pas à explorer ces onglets pour une expérience complète et immersive des statistiques et analyses de la F1.")
+            ], style={'font-weight': 'bold'}),
+            id='collapse'
+        )
     ]),
     dcc.Tabs(id='tabs', value='tab-1', children=[
         dcc.Tab(label='Comparaison entre pilotes', value='tab-1', children=[
@@ -85,7 +98,7 @@ app.layout = dbc.Container([
                 html.H3('Vue comparaison entre 2 pilotes', style={'margin-top': '10px'}),
                 html.P(
                     "Dans cet onglet, les utilisateurs ont la possibilité de comparer les performances de deux pilotes lors d'une course spécifique. En cas d'erreur ou de problème lors du "
-                    "chargement des données ou du traitement des informations, un message d'erreur explicite est affiché pour informer l'utilisateur de la situation, garantissant ainsi une expérience utilisateur transparente et informative.",
+                    "chargement des données oux du traitement des informations, un message d'erreur explicite est affiché pour informer l'utilisateur de la situation, garantissant ainsi une expérience utilisateur transparente et informative.",
                     style={'margin-top': '10px'}),
                 html.Br(),
                 dbc.Alert(
@@ -182,7 +195,8 @@ app.layout = dbc.Container([
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
-                html.H3('Analyse Dynamique et Résultats des Équipes durant les Courses', style={'margin-top': '10px'}),
+                html.H3('Analyse Dynamique et Résultats des Équipes durant les Courses',
+                        style={'margin-top': '10px'}),
                 html.P(
                     "Cette section analyse les performances en course des pilotes et équipes avec un graphique montrant les écarts de temps et une boîte à moustaches pour les statistiques clés de chaque écurie, comme le temps moyen par tour, offrant ainsi une vue détaillée de la dynamique de course et des stratégies d'équipe.")
             ]),
@@ -297,6 +311,19 @@ app.layout = dbc.Container([
 ])
 
 "------------------------------------------------ Dash - functions ----------------------------------------------------"
+
+
+@app.callback(
+    [Output("collapse", "is_open"), Output("toggle-text-button", "children")],
+    [Input("toggle-text-button", "n_clicks")],
+    [State("collapse", "is_open")],
+)
+def toggle_text(n, is_open):
+    if n:
+        return not is_open, "▲" if is_open else "▼"
+    return is_open, "▼"
+
+
 def get_years_selection(selected_year):
     if selected_year is None:
         raise PreventUpdate
@@ -425,9 +452,9 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
     output=[Output(component_id='fastests-laps', component_property="figure"),
             Output(component_id='positions-laps', component_property="figure"),
             Output(component_id='teams-speeds', component_property="figure")],
-    inputs=[Input(  "button_id_2", "n_clicks")],
-    state=[Input("dropdown-21", "value"),
-           Input("dropdown-22", "value")],
+    inputs=[Input("button_id_2", "n_clicks")],
+    state=[State("dropdown-21", "value"),
+           State("dropdown-22", "value")],
     running=[(Output("button_id_2", "disabled"), True, False),
              (Output("cancel_button_id_2", "disabled"), False, True)
              ],
@@ -435,9 +462,22 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
 )
 def plot_data_tab_2(n_clicks, year, race):
     print("PLOT DATA")
-    fig_fastest_laps = plot_fastests_laps(year, race)
-    fig_positions_laps = plot_positions_laps(year, race)
-    fig_teams_speeds = plot_teams_speeds_laps(year, race)
+    if race == None:
+        race = "Bahrain Grand Prix"
+
+    fig_fastest_laps = go.Figure(layout={"title": {"text": f"No data for this stage of {race}"}})
+    fig_positions_laps = go.Figure(layout={"title": {"text": f"No data for this stage of {race}"}})
+    fig_teams_speeds = go.Figure(layout={"title": {"text": f"No data for this stage of {race}"}})
+
+    try:
+
+        fig_fastest_laps = plot_fastests_laps(year, race)
+        fig_positions_laps = plot_positions_laps(year, race)
+        fig_teams_speeds = plot_teams_speeds_laps(year, race)
+    except Exception as e:
+        # Handle the error here
+        print(f"Error occurred: {e}")
+
     print("Done")
 
     return fig_fastest_laps, fig_positions_laps, fig_teams_speeds
