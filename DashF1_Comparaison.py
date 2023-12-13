@@ -24,11 +24,9 @@ f1_logo_path = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg
 additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineering/Resources/Public/Images/Logo/mse-full.svg'
 "----------------------------------------------- Charge DATA - only cloud ---------------------------------------------"
 
-#data = load_f1_data()
+# data = load_f1_data()
 
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
-
-
 
 "----------------------- Modal vue --------------------------------"
 modal = dbc.Modal(
@@ -69,7 +67,6 @@ modal = dbc.Modal(
     size="lg"
 )
 "--------------------------------------------------------------------------"
-
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], long_callback_manager=long_callback_manager)
 app.layout = dbc.Container([
@@ -177,21 +174,24 @@ app.layout = dbc.Container([
                 ])
             ]),
             html.Div(
-                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"), id="open-modal", n_clicks=0,
-                           className="rounded-circle custom-hover-button", style={"background-color": "white", "border-color": "black", "border-style": "solid"  }),
+                dbc.Button(html.Img(src="https://cdn-icons-png.flaticon.com/512/0/472.png", height="30px"),
+                           id="open-modal", n_clicks=0,
+                           className="rounded-circle custom-hover-button",
+                           style={"background-color": "white", "border-color": "black", "border-style": "solid"}),
                 style={"position": "fixed", "bottom": 20, "left": 20, "width": "50px", "height": "50px"}
             ),
             modal,
             dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
+                dbc.Col(
+                    html.Footer(
+                        html.P(
+                            "Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                        className="text-center text-muted"
                     ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
+                    width=12
+                ),
+                className='mt-5'  # Adds top margin to the footer row
+            )
         ]),
         dcc.Tab(label='Vue globale d\'un week-end de course', value='tab-2', children=[
             html.Div([
@@ -219,6 +219,10 @@ app.layout = dbc.Container([
                 ])
             ]),
             dbc.Row([
+                dbc.Col([html.Button(id="button_id_2", children="Lancer l'analyse pour la session sélectionnée")]),
+                dbc.Col([html.Button(id="cancel_button_id_2", children="Interrompre le processus")])
+            ]),
+            dbc.Row([
                 html.H3("Différence de vitesse durant la phase de qualification", style={'margin-top': '10px'}),
                 dcc.Loading(
                     id="fastestLaps",
@@ -233,7 +237,7 @@ app.layout = dbc.Container([
                     children=[dcc.Graph(id="positions-laps")],
                     type="circle",
                 )
-            ]),dbc.Row([
+            ]), dbc.Row([
                 html.H3("Statistiques du temps réalisé par tour pour chaque équipe", style={'margin-top': '10px'}),
                 dcc.Loading(
                     id="teamsSpeeds",
@@ -245,15 +249,16 @@ app.layout = dbc.Container([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
             dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
+                dbc.Col(
+                    html.Footer(
+                        html.P(
+                            "Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: ruben.terceiro@master.hes-so.ch"),
+                        className="text-center text-muted"
                     ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
+                    width=12
+                ),
+                className='mt-5'  # Adds top margin to the footer row
+            )
         ]),
         dcc.Tab(label='Classement par course', value='tab-3', children=[
             html.Div([
@@ -290,20 +295,23 @@ app.layout = dbc.Container([
                 html.H3("", style={'margin-bottom': '30px'}),
             ]),
             dbc.Row(
-                    dbc.Col(
-                        html.Footer(
-                            html.P("Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
-                            className="text-center text-muted"
-                        ),
-                        width=12
+                dbc.Col(
+                    html.Footer(
+                        html.P(
+                            "Created by Daniel Ribeiro Cabral & Ruben Terceiro - contact: daniel.ribeiroc@master.hes-so.ch"),
+                        className="text-center text-muted"
                     ),
-                    className='mt-5'  # Adds top margin to the footer row
-                )
+                    width=12
+                ),
+                className='mt-5'  # Adds top margin to the footer row
+            )
         ]),
     ]),
 ])
 
 "------------------------------------------------ Dash - functions ----------------------------------------------------"
+
+
 @app.callback(
     [Output("collapse", "is_open"), Output("toggle-text-button", "children")],
     [Input("toggle-text-button", "n_clicks")],
@@ -328,6 +336,7 @@ def get_years_selection(selected_year):
     # [{'label': list[i], 'value': i} for i in range(len(list))]
     return tab_countries
 
+
 @app.callback(
     Output("modal", "is_open"),
     [Input("open-modal", "n_clicks"), Input("close-modal", "n_clicks")],
@@ -337,6 +346,7 @@ def toggle_modal(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
+
 
 @app.callback(
     Output('loading-dropdown-12', 'children'),
@@ -488,4 +498,5 @@ def plot_data_tab_3(year):
 "---------------------------------------------- Launch Application ----------------------------------------------------"
 if __name__ == '__main__':
     print("Starting Server !")
-    app.run_server(debug=True, host='0.0.0.0', port=9000)
+    app.run_server(debug=True, port=8082)
+    # app.run_server(debug=True, host='0.0.0.0', port=9000)
