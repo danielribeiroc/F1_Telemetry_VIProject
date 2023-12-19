@@ -1,0 +1,341 @@
+round,race,driverCode,points
+1,Austrian,BOT,25.0
+1,Austrian,LEC,18.0
+1,Austrian,NOR,16.0
+1,Austrian,HAM,12.0
+1,Austrian,SAI,10.0
+1,Austrian,PER,8.0
+1,Austrian,GAS,6.0
+1,Austrian,OCO,4.0
+1,Austrian,GIO,2.0
+1,Austrian,VET,1.0
+1,Austrian,LAT,0.0
+1,Austrian,KVY,0.0
+1,Austrian,ALB,0.0
+1,Austrian,RAI,0.0
+1,Austrian,RUS,0.0
+1,Austrian,GRO,0.0
+1,Austrian,MAG,0.0
+1,Austrian,STR,0.0
+1,Austrian,RIC,0.0
+1,Austrian,VER,0.0
+2,Styrian,HAM,25.0
+2,Styrian,BOT,18.0
+2,Styrian,VER,15.0
+2,Styrian,ALB,12.0
+2,Styrian,NOR,10.0
+2,Styrian,PER,8.0
+2,Styrian,STR,6.0
+2,Styrian,RIC,4.0
+2,Styrian,SAI,3.0
+2,Styrian,KVY,1.0
+2,Styrian,RAI,0.0
+2,Styrian,MAG,0.0
+2,Styrian,GRO,0.0
+2,Styrian,GIO,0.0
+2,Styrian,GAS,0.0
+2,Styrian,RUS,0.0
+2,Styrian,LAT,0.0
+2,Styrian,OCO,0.0
+2,Styrian,LEC,0.0
+2,Styrian,VET,0.0
+3,Hungarian,HAM,26.0
+3,Hungarian,VER,18.0
+3,Hungarian,BOT,15.0
+3,Hungarian,STR,12.0
+3,Hungarian,ALB,10.0
+3,Hungarian,VET,8.0
+3,Hungarian,PER,6.0
+3,Hungarian,RIC,4.0
+3,Hungarian,SAI,2.0
+3,Hungarian,MAG,1.0
+3,Hungarian,LEC,0.0
+3,Hungarian,KVY,0.0
+3,Hungarian,NOR,0.0
+3,Hungarian,OCO,0.0
+3,Hungarian,RAI,0.0
+3,Hungarian,GRO,0.0
+3,Hungarian,GIO,0.0
+3,Hungarian,RUS,0.0
+3,Hungarian,LAT,0.0
+3,Hungarian,GAS,0.0
+4,British,HAM,25.0
+4,British,VER,19.0
+4,British,LEC,15.0
+4,British,RIC,12.0
+4,British,NOR,10.0
+4,British,OCO,8.0
+4,British,GAS,6.0
+4,British,ALB,4.0
+4,British,STR,2.0
+4,British,VET,1.0
+4,British,BOT,0.0
+4,British,RUS,0.0
+4,British,SAI,0.0
+4,British,GIO,0.0
+4,British,LAT,0.0
+4,British,GRO,0.0
+4,British,RAI,0.0
+4,British,KVY,0.0
+4,British,MAG,0.0
+4,British,HUL,0.0
+5,70th Anniversary,VER,25.0
+5,70th Anniversary,HAM,19.0
+5,70th Anniversary,BOT,15.0
+5,70th Anniversary,LEC,12.0
+5,70th Anniversary,ALB,10.0
+5,70th Anniversary,STR,8.0
+5,70th Anniversary,HUL,6.0
+5,70th Anniversary,OCO,4.0
+5,70th Anniversary,NOR,2.0
+5,70th Anniversary,KVY,1.0
+5,70th Anniversary,GAS,0.0
+5,70th Anniversary,VET,0.0
+5,70th Anniversary,SAI,0.0
+5,70th Anniversary,RIC,0.0
+5,70th Anniversary,RAI,0.0
+5,70th Anniversary,GRO,0.0
+5,70th Anniversary,GIO,0.0
+5,70th Anniversary,RUS,0.0
+5,70th Anniversary,LAT,0.0
+5,70th Anniversary,MAG,0.0
+6,Spanish,HAM,25.0
+6,Spanish,VER,18.0
+6,Spanish,BOT,16.0
+6,Spanish,STR,12.0
+6,Spanish,PER,10.0
+6,Spanish,SAI,8.0
+6,Spanish,VET,6.0
+6,Spanish,ALB,4.0
+6,Spanish,GAS,2.0
+6,Spanish,NOR,1.0
+6,Spanish,RIC,0.0
+6,Spanish,KVY,0.0
+6,Spanish,OCO,0.0
+6,Spanish,RAI,0.0
+6,Spanish,MAG,0.0
+6,Spanish,GIO,0.0
+6,Spanish,RUS,0.0
+6,Spanish,LAT,0.0
+6,Spanish,GRO,0.0
+6,Spanish,LEC,0.0
+7,Belgian,HAM,25.0
+7,Belgian,BOT,18.0
+7,Belgian,VER,15.0
+7,Belgian,RIC,13.0
+7,Belgian,OCO,10.0
+7,Belgian,ALB,8.0
+7,Belgian,NOR,6.0
+7,Belgian,GAS,4.0
+7,Belgian,STR,2.0
+7,Belgian,PER,1.0
+7,Belgian,KVY,0.0
+7,Belgian,RAI,0.0
+7,Belgian,VET,0.0
+7,Belgian,LEC,0.0
+7,Belgian,GRO,0.0
+7,Belgian,LAT,0.0
+7,Belgian,MAG,0.0
+7,Belgian,GIO,0.0
+7,Belgian,RUS,0.0
+7,Belgian,SAI,0.0
+8,Italian,GAS,25.0
+8,Italian,SAI,18.0
+8,Italian,STR,15.0
+8,Italian,NOR,12.0
+8,Italian,BOT,10.0
+8,Italian,RIC,8.0
+8,Italian,HAM,7.0
+8,Italian,OCO,4.0
+8,Italian,KVY,2.0
+8,Italian,PER,1.0
+8,Italian,LAT,0.0
+8,Italian,GRO,0.0
+8,Italian,RAI,0.0
+8,Italian,RUS,0.0
+8,Italian,ALB,0.0
+8,Italian,GIO,0.0
+8,Italian,VER,0.0
+8,Italian,LEC,0.0
+8,Italian,MAG,0.0
+8,Italian,VET,0.0
+9,Tuscan,HAM,26.0
+9,Tuscan,BOT,18.0
+9,Tuscan,ALB,15.0
+9,Tuscan,RIC,12.0
+9,Tuscan,PER,10.0
+9,Tuscan,NOR,8.0
+9,Tuscan,KVY,6.0
+9,Tuscan,LEC,4.0
+9,Tuscan,RAI,2.0
+9,Tuscan,VET,1.0
+9,Tuscan,RUS,0.0
+9,Tuscan,GRO,0.0
+9,Tuscan,STR,0.0
+9,Tuscan,OCO,0.0
+9,Tuscan,LAT,0.0
+9,Tuscan,MAG,0.0
+9,Tuscan,GIO,0.0
+9,Tuscan,SAI,0.0
+9,Tuscan,VER,0.0
+9,Tuscan,GAS,0.0
+10,Russian,BOT,26.0
+10,Russian,VER,18.0
+10,Russian,HAM,15.0
+10,Russian,PER,12.0
+10,Russian,RIC,10.0
+10,Russian,LEC,8.0
+10,Russian,OCO,6.0
+10,Russian,KVY,4.0
+10,Russian,GAS,2.0
+10,Russian,ALB,1.0
+10,Russian,GIO,0.0
+10,Russian,MAG,0.0
+10,Russian,VET,0.0
+10,Russian,RAI,0.0
+10,Russian,NOR,0.0
+10,Russian,LAT,0.0
+10,Russian,GRO,0.0
+10,Russian,RUS,0.0
+10,Russian,SAI,0.0
+10,Russian,STR,0.0
+11,Eifel,HAM,25.0
+11,Eifel,VER,19.0
+11,Eifel,RIC,15.0
+11,Eifel,PER,12.0
+11,Eifel,SAI,10.0
+11,Eifel,GAS,8.0
+11,Eifel,LEC,6.0
+11,Eifel,HUL,4.0
+11,Eifel,GRO,2.0
+11,Eifel,GIO,1.0
+11,Eifel,VET,0.0
+11,Eifel,RAI,0.0
+11,Eifel,MAG,0.0
+11,Eifel,LAT,0.0
+11,Eifel,KVY,0.0
+11,Eifel,NOR,0.0
+11,Eifel,ALB,0.0
+11,Eifel,OCO,0.0
+11,Eifel,BOT,0.0
+11,Eifel,RUS,0.0
+12,Portuguese,HAM,26.0
+12,Portuguese,BOT,18.0
+12,Portuguese,VER,15.0
+12,Portuguese,LEC,12.0
+12,Portuguese,GAS,10.0
+12,Portuguese,SAI,8.0
+12,Portuguese,PER,6.0
+12,Portuguese,OCO,4.0
+12,Portuguese,RIC,2.0
+12,Portuguese,VET,1.0
+12,Portuguese,RAI,0.0
+12,Portuguese,ALB,0.0
+12,Portuguese,NOR,0.0
+12,Portuguese,RUS,0.0
+12,Portuguese,GIO,0.0
+12,Portuguese,MAG,0.0
+12,Portuguese,GRO,0.0
+12,Portuguese,LAT,0.0
+12,Portuguese,KVY,0.0
+12,Portuguese,STR,0.0
+13,Emilia Romagna,HAM,26.0
+13,Emilia Romagna,BOT,18.0
+13,Emilia Romagna,RIC,15.0
+13,Emilia Romagna,KVY,12.0
+13,Emilia Romagna,LEC,10.0
+13,Emilia Romagna,PER,8.0
+13,Emilia Romagna,SAI,6.0
+13,Emilia Romagna,NOR,4.0
+13,Emilia Romagna,RAI,2.0
+13,Emilia Romagna,GIO,1.0
+13,Emilia Romagna,LAT,0.0
+13,Emilia Romagna,VET,0.0
+13,Emilia Romagna,STR,0.0
+13,Emilia Romagna,GRO,0.0
+13,Emilia Romagna,ALB,0.0
+13,Emilia Romagna,RUS,0.0
+13,Emilia Romagna,VER,0.0
+13,Emilia Romagna,MAG,0.0
+13,Emilia Romagna,OCO,0.0
+13,Emilia Romagna,GAS,0.0
+14,Turkish,HAM,25.0
+14,Turkish,PER,18.0
+14,Turkish,VET,15.0
+14,Turkish,LEC,12.0
+14,Turkish,SAI,10.0
+14,Turkish,VER,8.0
+14,Turkish,ALB,6.0
+14,Turkish,NOR,5.0
+14,Turkish,STR,2.0
+14,Turkish,RIC,1.0
+14,Turkish,OCO,0.0
+14,Turkish,KVY,0.0
+14,Turkish,GAS,0.0
+14,Turkish,BOT,0.0
+14,Turkish,RAI,0.0
+14,Turkish,RUS,0.0
+14,Turkish,MAG,0.0
+14,Turkish,GRO,0.0
+14,Turkish,LAT,0.0
+14,Turkish,GIO,0.0
+15,Bahrain,HAM,25.0
+15,Bahrain,VER,19.0
+15,Bahrain,ALB,15.0
+15,Bahrain,NOR,12.0
+15,Bahrain,SAI,10.0
+15,Bahrain,GAS,8.0
+15,Bahrain,RIC,6.0
+15,Bahrain,BOT,4.0
+15,Bahrain,OCO,2.0
+15,Bahrain,LEC,1.0
+15,Bahrain,KVY,0.0
+15,Bahrain,RUS,0.0
+15,Bahrain,VET,0.0
+15,Bahrain,LAT,0.0
+15,Bahrain,RAI,0.0
+15,Bahrain,GIO,0.0
+15,Bahrain,MAG,0.0
+15,Bahrain,PER,0.0
+15,Bahrain,STR,0.0
+15,Bahrain,GRO,0.0
+16,Sakhir,PER,25.0
+16,Sakhir,OCO,18.0
+16,Sakhir,STR,15.0
+16,Sakhir,SAI,12.0
+16,Sakhir,RIC,10.0
+16,Sakhir,ALB,8.0
+16,Sakhir,KVY,6.0
+16,Sakhir,BOT,4.0
+16,Sakhir,RUS,3.0
+16,Sakhir,NOR,1.0
+16,Sakhir,GAS,0.0
+16,Sakhir,VET,0.0
+16,Sakhir,GIO,0.0
+16,Sakhir,RAI,0.0
+16,Sakhir,MAG,0.0
+16,Sakhir,AIT,0.0
+16,Sakhir,FIT,0.0
+16,Sakhir,LAT,0.0
+16,Sakhir,VER,0.0
+16,Sakhir,LEC,0.0
+17,Abu Dhabi,VER,25.0
+17,Abu Dhabi,BOT,18.0
+17,Abu Dhabi,HAM,15.0
+17,Abu Dhabi,ALB,12.0
+17,Abu Dhabi,NOR,10.0
+17,Abu Dhabi,SAI,8.0
+17,Abu Dhabi,RIC,7.0
+17,Abu Dhabi,GAS,4.0
+17,Abu Dhabi,OCO,2.0
+17,Abu Dhabi,STR,1.0
+17,Abu Dhabi,KVY,0.0
+17,Abu Dhabi,RAI,0.0
+17,Abu Dhabi,LEC,0.0
+17,Abu Dhabi,VET,0.0
+17,Abu Dhabi,RUS,0.0
+17,Abu Dhabi,GIO,0.0
+17,Abu Dhabi,LAT,0.0
+17,Abu Dhabi,MAG,0.0
+17,Abu Dhabi,FIT,0.0
+17,Abu Dhabi,PER,0.0
