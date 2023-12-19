@@ -1,0 +1,441 @@
+round,race,driverCode,points
+1,Bahrain,VER,25.0
+1,Bahrain,PER,18.0
+1,Bahrain,ALO,15.0
+1,Bahrain,SAI,12.0
+1,Bahrain,HAM,10.0
+1,Bahrain,STR,8.0
+1,Bahrain,RUS,6.0
+1,Bahrain,BOT,4.0
+1,Bahrain,GAS,2.0
+1,Bahrain,ALB,1.0
+1,Bahrain,TSU,0.0
+1,Bahrain,SAR,0.0
+1,Bahrain,MAG,0.0
+1,Bahrain,DEV,0.0
+1,Bahrain,HUL,0.0
+1,Bahrain,ZHO,0.0
+1,Bahrain,NOR,0.0
+1,Bahrain,OCO,0.0
+1,Bahrain,LEC,0.0
+1,Bahrain,PIA,0.0
+2,Saudi Arabian,PER,25.0
+2,Saudi Arabian,VER,19.0
+2,Saudi Arabian,ALO,15.0
+2,Saudi Arabian,RUS,12.0
+2,Saudi Arabian,HAM,10.0
+2,Saudi Arabian,SAI,8.0
+2,Saudi Arabian,LEC,6.0
+2,Saudi Arabian,OCO,4.0
+2,Saudi Arabian,GAS,2.0
+2,Saudi Arabian,MAG,1.0
+2,Saudi Arabian,TSU,0.0
+2,Saudi Arabian,HUL,0.0
+2,Saudi Arabian,ZHO,0.0
+2,Saudi Arabian,DEV,0.0
+2,Saudi Arabian,PIA,0.0
+2,Saudi Arabian,SAR,0.0
+2,Saudi Arabian,NOR,0.0
+2,Saudi Arabian,BOT,0.0
+2,Saudi Arabian,ALB,0.0
+2,Saudi Arabian,STR,0.0
+3,Australian,VER,25.0
+3,Australian,HAM,18.0
+3,Australian,ALO,15.0
+3,Australian,STR,12.0
+3,Australian,PER,11.0
+3,Australian,NOR,8.0
+3,Australian,HUL,6.0
+3,Australian,PIA,4.0
+3,Australian,ZHO,2.0
+3,Australian,TSU,1.0
+3,Australian,BOT,0.0
+3,Australian,SAI,0.0
+3,Australian,GAS,0.0
+3,Australian,OCO,0.0
+3,Australian,DEV,0.0
+3,Australian,SAR,0.0
+3,Australian,MAG,0.0
+3,Australian,RUS,0.0
+3,Australian,ALB,0.0
+3,Australian,LEC,0.0
+4,Azerbaijan,PER,33.0
+4,Azerbaijan,VER,24.0
+4,Azerbaijan,LEC,22.0
+4,Azerbaijan,ALO,15.0
+4,Azerbaijan,SAI,14.0
+4,Azerbaijan,HAM,10.0
+4,Azerbaijan,STR,7.0
+4,Azerbaijan,RUS,10.0
+4,Azerbaijan,NOR,2.0
+4,Azerbaijan,TSU,1.0
+4,Azerbaijan,PIA,0.0
+4,Azerbaijan,ALB,0.0
+4,Azerbaijan,MAG,0.0
+4,Azerbaijan,GAS,0.0
+4,Azerbaijan,OCO,0.0
+4,Azerbaijan,SAR,0.0
+4,Azerbaijan,HUL,0.0
+4,Azerbaijan,BOT,0.0
+4,Azerbaijan,ZHO,0.0
+4,Azerbaijan,DEV,0.0
+5,Miami,VER,26.0
+5,Miami,PER,18.0
+5,Miami,ALO,15.0
+5,Miami,RUS,12.0
+5,Miami,SAI,10.0
+5,Miami,HAM,8.0
+5,Miami,LEC,6.0
+5,Miami,GAS,4.0
+5,Miami,OCO,2.0
+5,Miami,MAG,1.0
+5,Miami,TSU,0.0
+5,Miami,STR,0.0
+5,Miami,BOT,0.0
+5,Miami,ALB,0.0
+5,Miami,HUL,0.0
+5,Miami,ZHO,0.0
+5,Miami,NOR,0.0
+5,Miami,DEV,0.0
+5,Miami,PIA,0.0
+5,Miami,SAR,0.0
+6,Monaco,VER,25.0
+6,Monaco,ALO,18.0
+6,Monaco,OCO,15.0
+6,Monaco,HAM,13.0
+6,Monaco,RUS,10.0
+6,Monaco,LEC,8.0
+6,Monaco,GAS,6.0
+6,Monaco,SAI,4.0
+6,Monaco,NOR,2.0
+6,Monaco,PIA,1.0
+6,Monaco,BOT,0.0
+6,Monaco,DEV,0.0
+6,Monaco,ZHO,0.0
+6,Monaco,ALB,0.0
+6,Monaco,TSU,0.0
+6,Monaco,PER,0.0
+6,Monaco,HUL,0.0
+6,Monaco,SAR,0.0
+6,Monaco,MAG,0.0
+6,Monaco,STR,0.0
+7,Spanish,VER,26.0
+7,Spanish,HAM,18.0
+7,Spanish,RUS,15.0
+7,Spanish,PER,12.0
+7,Spanish,SAI,10.0
+7,Spanish,STR,8.0
+7,Spanish,ALO,6.0
+7,Spanish,OCO,4.0
+7,Spanish,ZHO,2.0
+7,Spanish,GAS,1.0
+7,Spanish,LEC,0.0
+7,Spanish,TSU,0.0
+7,Spanish,PIA,0.0
+7,Spanish,DEV,0.0
+7,Spanish,HUL,0.0
+7,Spanish,ALB,0.0
+7,Spanish,NOR,0.0
+7,Spanish,MAG,0.0
+7,Spanish,BOT,0.0
+7,Spanish,SAR,0.0
+8,Canadian,VER,25.0
+8,Canadian,ALO,18.0
+8,Canadian,HAM,15.0
+8,Canadian,LEC,12.0
+8,Canadian,SAI,10.0
+8,Canadian,PER,9.0
+8,Canadian,ALB,6.0
+8,Canadian,OCO,4.0
+8,Canadian,STR,2.0
+8,Canadian,BOT,1.0
+8,Canadian,PIA,0.0
+8,Canadian,GAS,0.0
+8,Canadian,NOR,0.0
+8,Canadian,TSU,0.0
+8,Canadian,HUL,0.0
+8,Canadian,ZHO,0.0
+8,Canadian,MAG,0.0
+8,Canadian,DEV,0.0
+8,Canadian,RUS,0.0
+8,Canadian,SAR,0.0
+9,Austrian,VER,34.0
+9,Austrian,LEC,18.0
+9,Austrian,PER,22.0
+9,Austrian,NOR,12.0
+9,Austrian,ALO,14.0
+9,Austrian,SAI,14.0
+9,Austrian,RUS,7.0
+9,Austrian,HAM,4.0
+9,Austrian,STR,7.0
+9,Austrian,GAS,1.0
+9,Austrian,ALB,0.0
+9,Austrian,ZHO,0.0
+9,Austrian,SAR,0.0
+9,Austrian,OCO,2.0
+9,Austrian,BOT,0.0
+9,Austrian,PIA,0.0
+9,Austrian,DEV,0.0
+9,Austrian,MAG,0.0
+9,Austrian,TSU,0.0
+9,Austrian,HUL,3.0
+10,British,VER,26.0
+10,British,NOR,18.0
+10,British,HAM,15.0
+10,British,PIA,12.0
+10,British,RUS,10.0
+10,British,PER,8.0
+10,British,ALO,6.0
+10,British,ALB,4.0
+10,British,LEC,2.0
+10,British,SAI,1.0
+10,British,SAR,0.0
+10,British,BOT,0.0
+10,British,HUL,0.0
+10,British,STR,0.0
+10,British,ZHO,0.0
+10,British,TSU,0.0
+10,British,DEV,0.0
+10,British,GAS,0.0
+10,British,MAG,0.0
+10,British,OCO,0.0
+11,Hungarian,VER,26.0
+11,Hungarian,NOR,18.0
+11,Hungarian,PER,15.0
+11,Hungarian,HAM,12.0
+11,Hungarian,PIA,10.0
+11,Hungarian,RUS,8.0
+11,Hungarian,LEC,6.0
+11,Hungarian,SAI,4.0
+11,Hungarian,ALO,2.0
+11,Hungarian,STR,1.0
+11,Hungarian,ALB,0.0
+11,Hungarian,BOT,0.0
+11,Hungarian,RIC,0.0
+11,Hungarian,HUL,0.0
+11,Hungarian,TSU,0.0
+11,Hungarian,ZHO,0.0
+11,Hungarian,MAG,0.0
+11,Hungarian,SAR,0.0
+11,Hungarian,OCO,0.0
+11,Hungarian,GAS,0.0
+12,Belgian,VER,33.0
+12,Belgian,PER,18.0
+12,Belgian,LEC,19.0
+12,Belgian,HAM,15.0
+12,Belgian,ALO,10.0
+12,Belgian,RUS,9.0
+12,Belgian,NOR,9.0
+12,Belgian,OCO,4.0
+12,Belgian,STR,2.0
+12,Belgian,TSU,1.0
+12,Belgian,GAS,6.0
+12,Belgian,BOT,0.0
+12,Belgian,ZHO,0.0
+12,Belgian,ALB,0.0
+12,Belgian,MAG,0.0
+12,Belgian,RIC,0.0
+12,Belgian,SAR,0.0
+12,Belgian,HUL,0.0
+12,Belgian,SAI,5.0
+12,Belgian,PIA,7.0
+13,Dutch,VER,25.0
+13,Dutch,ALO,19.0
+13,Dutch,GAS,15.0
+13,Dutch,PER,12.0
+13,Dutch,SAI,10.0
+13,Dutch,HAM,8.0
+13,Dutch,NOR,6.0
+13,Dutch,ALB,4.0
+13,Dutch,PIA,2.0
+13,Dutch,OCO,1.0
+13,Dutch,STR,0.0
+13,Dutch,HUL,0.0
+13,Dutch,LAW,0.0
+13,Dutch,BOT,0.0
+13,Dutch,TSU,0.0
+13,Dutch,MAG,0.0
+13,Dutch,RUS,0.0
+13,Dutch,ZHO,0.0
+13,Dutch,LEC,0.0
+13,Dutch,SAR,0.0
+14,Italian,VER,25.0
+14,Italian,PER,18.0
+14,Italian,SAI,15.0
+14,Italian,LEC,12.0
+14,Italian,RUS,10.0
+14,Italian,HAM,8.0
+14,Italian,ALB,6.0
+14,Italian,NOR,4.0
+14,Italian,ALO,2.0
+14,Italian,BOT,1.0
+14,Italian,LAW,0.0
+14,Italian,PIA,0.0
+14,Italian,SAR,0.0
+14,Italian,ZHO,0.0
+14,Italian,GAS,0.0
+14,Italian,STR,0.0
+14,Italian,HUL,0.0
+14,Italian,MAG,0.0
+14,Italian,OCO,0.0
+14,Italian,TSU,0.0
+15,Singapore,SAI,25.0
+15,Singapore,NOR,18.0
+15,Singapore,HAM,16.0
+15,Singapore,LEC,12.0
+15,Singapore,VER,10.0
+15,Singapore,GAS,8.0
+15,Singapore,PIA,6.0
+15,Singapore,PER,4.0
+15,Singapore,LAW,2.0
+15,Singapore,MAG,1.0
+15,Singapore,ALB,0.0
+15,Singapore,ZHO,0.0
+15,Singapore,HUL,0.0
+15,Singapore,SAR,0.0
+15,Singapore,ALO,0.0
+15,Singapore,RUS,0.0
+15,Singapore,BOT,0.0
+15,Singapore,OCO,0.0
+15,Singapore,TSU,0.0
+15,Singapore,STR,0.0
+16,Japanese,VER,26.0
+16,Japanese,NOR,18.0
+16,Japanese,PIA,15.0
+16,Japanese,LEC,12.0
+16,Japanese,HAM,10.0
+16,Japanese,SAI,8.0
+16,Japanese,RUS,6.0
+16,Japanese,ALO,4.0
+16,Japanese,OCO,2.0
+16,Japanese,GAS,1.0
+16,Japanese,LAW,0.0
+16,Japanese,TSU,0.0
+16,Japanese,ZHO,0.0
+16,Japanese,HUL,0.0
+16,Japanese,MAG,0.0
+16,Japanese,ALB,0.0
+16,Japanese,SAR,0.0
+16,Japanese,STR,0.0
+16,Japanese,PER,0.0
+16,Japanese,BOT,0.0
+17,Qatar,VER,33.0
+17,Qatar,PIA,26.0
+17,Qatar,NOR,21.0
+17,Qatar,RUS,17.0
+17,Qatar,LEC,10.0
+17,Qatar,ALO,9.0
+17,Qatar,OCO,6.0
+17,Qatar,BOT,4.0
+17,Qatar,ZHO,2.0
+17,Qatar,PER,1.0
+17,Qatar,STR,0.0
+17,Qatar,GAS,0.0
+17,Qatar,ALB,2.0
+17,Qatar,MAG,0.0
+17,Qatar,TSU,0.0
+17,Qatar,HUL,0.0
+17,Qatar,LAW,0.0
+17,Qatar,SAR,0.0
+17,Qatar,HAM,4.0
+17,Qatar,SAI,3.0
+18,United States,VER,33.0
+18,United States,NOR,23.0
+18,United States,SAI,18.0
+18,United States,PER,16.0
+18,United States,RUS,11.0
+18,United States,GAS,10.0
+18,United States,STR,6.0
+18,United States,TSU,5.0
+18,United States,ALB,2.0
+18,United States,SAR,1.0
+18,United States,HUL,0.0
+18,United States,BOT,0.0
+18,United States,ZHO,0.0
+18,United States,MAG,0.0
+18,United States,RIC,0.0
+18,United States,ALO,0.0
+18,United States,PIA,0.0
+18,United States,OCO,0.0
+18,United States,HAM,7.0
+18,United States,LEC,6.0
+19,Mexico City,VER,25.0
+19,Mexico City,HAM,19.0
+19,Mexico City,LEC,15.0
+19,Mexico City,SAI,12.0
+19,Mexico City,NOR,10.0
+19,Mexico City,RUS,8.0
+19,Mexico City,RIC,6.0
+19,Mexico City,PIA,4.0
+19,Mexico City,ALB,2.0
+19,Mexico City,OCO,1.0
+19,Mexico City,GAS,0.0
+19,Mexico City,TSU,0.0
+19,Mexico City,HUL,0.0
+19,Mexico City,ZHO,0.0
+19,Mexico City,BOT,0.0
+19,Mexico City,SAR,0.0
+19,Mexico City,STR,0.0
+19,Mexico City,ALO,0.0
+19,Mexico City,MAG,0.0
+19,Mexico City,PER,0.0
+20,São Paulo,VER,33.0
+20,São Paulo,NOR,26.0
+20,São Paulo,ALO,15.0
+20,São Paulo,PER,18.0
+20,São Paulo,STR,10.0
+20,São Paulo,SAI,9.0
+20,São Paulo,GAS,6.0
+20,São Paulo,HAM,6.0
+20,São Paulo,TSU,5.0
+20,São Paulo,OCO,1.0
+20,São Paulo,SAR,0.0
+20,São Paulo,HUL,0.0
+20,São Paulo,RIC,0.0
+20,São Paulo,PIA,0.0
+20,São Paulo,RUS,5.0
+20,São Paulo,BOT,0.0
+20,São Paulo,ZHO,0.0
+20,São Paulo,MAG,0.0
+20,São Paulo,ALB,0.0
+20,São Paulo,LEC,4.0
+21,Las Vegas,VER,25.0
+21,Las Vegas,LEC,18.0
+21,Las Vegas,PER,15.0
+21,Las Vegas,OCO,12.0
+21,Las Vegas,STR,10.0
+21,Las Vegas,SAI,8.0
+21,Las Vegas,HAM,6.0
+21,Las Vegas,RUS,4.0
+21,Las Vegas,ALO,2.0
+21,Las Vegas,PIA,2.0
+21,Las Vegas,GAS,0.0
+21,Las Vegas,ALB,0.0
+21,Las Vegas,MAG,0.0
+21,Las Vegas,RIC,0.0
+21,Las Vegas,ZHO,0.0
+21,Las Vegas,SAR,0.0
+21,Las Vegas,BOT,0.0
+21,Las Vegas,TSU,0.0
+21,Las Vegas,HUL,0.0
+21,Las Vegas,NOR,0.0
+22,Abu Dhabi,VER,26.0
+22,Abu Dhabi,LEC,18.0
+22,Abu Dhabi,RUS,15.0
+22,Abu Dhabi,PER,12.0
+22,Abu Dhabi,NOR,10.0
+22,Abu Dhabi,PIA,8.0
+22,Abu Dhabi,ALO,6.0
+22,Abu Dhabi,TSU,4.0
+22,Abu Dhabi,HAM,2.0
+22,Abu Dhabi,STR,1.0
+22,Abu Dhabi,RIC,0.0
+22,Abu Dhabi,OCO,0.0
+22,Abu Dhabi,GAS,0.0
+22,Abu Dhabi,ALB,0.0
+22,Abu Dhabi,HUL,0.0
+22,Abu Dhabi,SAR,0.0
+22,Abu Dhabi,ZHO,0.0
+22,Abu Dhabi,SAI,0.0
+22,Abu Dhabi,BOT,0.0
+22,Abu Dhabi,MAG,0.0

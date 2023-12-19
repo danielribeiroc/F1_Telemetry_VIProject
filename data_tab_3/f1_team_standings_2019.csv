@@ -1,0 +1,421 @@
+round,race,constructorName,points
+1,Australian,Mercedes,26.0
+1,Australian,Mercedes,18.0
+1,Australian,Red Bull,15.0
+1,Australian,Ferrari,12.0
+1,Australian,Ferrari,10.0
+1,Australian,Haas F1 Team,8.0
+1,Australian,Renault,6.0
+1,Australian,Alfa Romeo,4.0
+1,Australian,Racing Point,2.0
+1,Australian,Toro Rosso,1.0
+1,Australian,Red Bull,0.0
+1,Australian,McLaren,0.0
+1,Australian,Racing Point,0.0
+1,Australian,Toro Rosso,0.0
+1,Australian,Alfa Romeo,0.0
+1,Australian,Williams,0.0
+1,Australian,Williams,0.0
+1,Australian,Haas F1 Team,0.0
+1,Australian,Renault,0.0
+1,Australian,McLaren,0.0
+2,Bahrain,Mercedes,25.0
+2,Bahrain,Mercedes,18.0
+2,Bahrain,Ferrari,16.0
+2,Bahrain,Red Bull,12.0
+2,Bahrain,Ferrari,10.0
+2,Bahrain,McLaren,8.0
+2,Bahrain,Alfa Romeo,6.0
+2,Bahrain,Red Bull,4.0
+2,Bahrain,Toro Rosso,2.0
+2,Bahrain,Racing Point,1.0
+2,Bahrain,Alfa Romeo,0.0
+2,Bahrain,Toro Rosso,0.0
+2,Bahrain,Haas F1 Team,0.0
+2,Bahrain,Racing Point,0.0
+2,Bahrain,Williams,0.0
+2,Bahrain,Williams,0.0
+2,Bahrain,Renault,0.0
+2,Bahrain,Renault,0.0
+2,Bahrain,McLaren,0.0
+2,Bahrain,Haas F1 Team,0.0
+3,Chinese,Mercedes,25.0
+3,Chinese,Mercedes,18.0
+3,Chinese,Ferrari,15.0
+3,Chinese,Red Bull,12.0
+3,Chinese,Ferrari,10.0
+3,Chinese,Red Bull,9.0
+3,Chinese,Renault,6.0
+3,Chinese,Racing Point,4.0
+3,Chinese,Alfa Romeo,2.0
+3,Chinese,Toro Rosso,1.0
+3,Chinese,Haas F1 Team,0.0
+3,Chinese,Racing Point,0.0
+3,Chinese,Haas F1 Team,0.0
+3,Chinese,McLaren,0.0
+3,Chinese,Alfa Romeo,0.0
+3,Chinese,Williams,0.0
+3,Chinese,Williams,0.0
+3,Chinese,McLaren,0.0
+3,Chinese,Toro Rosso,0.0
+3,Chinese,Renault,0.0
+4,Azerbaijan,Mercedes,25.0
+4,Azerbaijan,Mercedes,18.0
+4,Azerbaijan,Ferrari,15.0
+4,Azerbaijan,Red Bull,12.0
+4,Azerbaijan,Ferrari,11.0
+4,Azerbaijan,Racing Point,8.0
+4,Azerbaijan,McLaren,6.0
+4,Azerbaijan,McLaren,4.0
+4,Azerbaijan,Racing Point,2.0
+4,Azerbaijan,Alfa Romeo,1.0
+4,Azerbaijan,Toro Rosso,0.0
+4,Azerbaijan,Alfa Romeo,0.0
+4,Azerbaijan,Haas F1 Team,0.0
+4,Azerbaijan,Renault,0.0
+4,Azerbaijan,Williams,0.0
+4,Azerbaijan,Williams,0.0
+4,Azerbaijan,Red Bull,0.0
+4,Azerbaijan,Haas F1 Team,0.0
+4,Azerbaijan,Toro Rosso,0.0
+4,Azerbaijan,Renault,0.0
+5,Spanish,Mercedes,26.0
+5,Spanish,Mercedes,18.0
+5,Spanish,Red Bull,15.0
+5,Spanish,Ferrari,12.0
+5,Spanish,Ferrari,10.0
+5,Spanish,Red Bull,8.0
+5,Spanish,Haas F1 Team,6.0
+5,Spanish,McLaren,4.0
+5,Spanish,Toro Rosso,2.0
+5,Spanish,Haas F1 Team,1.0
+5,Spanish,Toro Rosso,0.0
+5,Spanish,Renault,0.0
+5,Spanish,Renault,0.0
+5,Spanish,Alfa Romeo,0.0
+5,Spanish,Racing Point,0.0
+5,Spanish,Alfa Romeo,0.0
+5,Spanish,Williams,0.0
+5,Spanish,Williams,0.0
+5,Spanish,Racing Point,0.0
+5,Spanish,McLaren,0.0
+6,Monaco,Mercedes,25.0
+6,Monaco,Ferrari,18.0
+6,Monaco,Mercedes,15.0
+6,Monaco,Red Bull,12.0
+6,Monaco,Red Bull,11.0
+6,Monaco,McLaren,8.0
+6,Monaco,Toro Rosso,6.0
+6,Monaco,Toro Rosso,4.0
+6,Monaco,Renault,2.0
+6,Monaco,Haas F1 Team,1.0
+6,Monaco,McLaren,0.0
+6,Monaco,Racing Point,0.0
+6,Monaco,Renault,0.0
+6,Monaco,Haas F1 Team,0.0
+6,Monaco,Williams,0.0
+6,Monaco,Racing Point,0.0
+6,Monaco,Alfa Romeo,0.0
+6,Monaco,Williams,0.0
+6,Monaco,Alfa Romeo,0.0
+6,Monaco,Ferrari,0.0
+7,Canadian,Mercedes,25.0
+7,Canadian,Ferrari,18.0
+7,Canadian,Ferrari,15.0
+7,Canadian,Mercedes,13.0
+7,Canadian,Red Bull,10.0
+7,Canadian,Renault,8.0
+7,Canadian,Renault,6.0
+7,Canadian,Red Bull,4.0
+7,Canadian,Racing Point,2.0
+7,Canadian,Toro Rosso,1.0
+7,Canadian,McLaren,0.0
+7,Canadian,Racing Point,0.0
+7,Canadian,Alfa Romeo,0.0
+7,Canadian,Haas F1 Team,0.0
+7,Canadian,Alfa Romeo,0.0
+7,Canadian,Williams,0.0
+7,Canadian,Haas F1 Team,0.0
+7,Canadian,Williams,0.0
+7,Canadian,Toro Rosso,0.0
+7,Canadian,McLaren,0.0
+8,French,Mercedes,25.0
+8,French,Mercedes,18.0
+8,French,Ferrari,15.0
+8,French,Red Bull,12.0
+8,French,Ferrari,11.0
+8,French,McLaren,8.0
+8,French,Alfa Romeo,6.0
+8,French,Renault,4.0
+8,French,McLaren,2.0
+8,French,Red Bull,1.0
+8,French,Renault,0.0
+8,French,Racing Point,0.0
+8,French,Racing Point,0.0
+8,French,Toro Rosso,0.0
+8,French,Toro Rosso,0.0
+8,French,Alfa Romeo,0.0
+8,French,Haas F1 Team,0.0
+8,French,Williams,0.0
+8,French,Williams,0.0
+8,French,Haas F1 Team,0.0
+9,Austrian,Red Bull,26.0
+9,Austrian,Ferrari,18.0
+9,Austrian,Mercedes,15.0
+9,Austrian,Ferrari,12.0
+9,Austrian,Mercedes,10.0
+9,Austrian,McLaren,8.0
+9,Austrian,Red Bull,6.0
+9,Austrian,McLaren,4.0
+9,Austrian,Alfa Romeo,2.0
+9,Austrian,Alfa Romeo,1.0
+9,Austrian,Racing Point,0.0
+9,Austrian,Renault,0.0
+9,Austrian,Renault,0.0
+9,Austrian,Racing Point,0.0
+9,Austrian,Toro Rosso,0.0
+9,Austrian,Haas F1 Team,0.0
+9,Austrian,Toro Rosso,0.0
+9,Austrian,Williams,0.0
+9,Austrian,Haas F1 Team,0.0
+9,Austrian,Williams,0.0
+10,British,Mercedes,26.0
+10,British,Mercedes,18.0
+10,British,Ferrari,15.0
+10,British,Red Bull,12.0
+10,British,Red Bull,10.0
+10,British,McLaren,8.0
+10,British,Renault,6.0
+10,British,Alfa Romeo,4.0
+10,British,Toro Rosso,2.0
+10,British,Renault,1.0
+10,British,McLaren,0.0
+10,British,Toro Rosso,0.0
+10,British,Racing Point,0.0
+10,British,Williams,0.0
+10,British,Williams,0.0
+10,British,Ferrari,0.0
+10,British,Racing Point,0.0
+10,British,Alfa Romeo,0.0
+10,British,Haas F1 Team,0.0
+10,British,Haas F1 Team,0.0
+11,German,Red Bull,26.0
+11,German,Ferrari,18.0
+11,German,Toro Rosso,15.0
+11,German,Racing Point,12.0
+11,German,McLaren,10.0
+11,German,Toro Rosso,8.0
+11,German,Haas F1 Team,6.0
+11,German,Haas F1 Team,4.0
+11,German,Mercedes,2.0
+11,German,Williams,1.0
+11,German,Williams,0.0
+11,German,Alfa Romeo,0.0
+11,German,Alfa Romeo,0.0
+11,German,Red Bull,0.0
+11,German,Mercedes,0.0
+11,German,Renault,0.0
+11,German,Ferrari,0.0
+11,German,McLaren,0.0
+11,German,Renault,0.0
+11,German,Racing Point,0.0
+12,Hungarian,Mercedes,25.0
+12,Hungarian,Red Bull,19.0
+12,Hungarian,Ferrari,15.0
+12,Hungarian,Ferrari,12.0
+12,Hungarian,McLaren,10.0
+12,Hungarian,Red Bull,8.0
+12,Hungarian,Alfa Romeo,6.0
+12,Hungarian,Mercedes,4.0
+12,Hungarian,McLaren,2.0
+12,Hungarian,Toro Rosso,1.0
+12,Hungarian,Racing Point,0.0
+12,Hungarian,Renault,0.0
+12,Hungarian,Haas F1 Team,0.0
+12,Hungarian,Renault,0.0
+12,Hungarian,Toro Rosso,0.0
+12,Hungarian,Williams,0.0
+12,Hungarian,Racing Point,0.0
+12,Hungarian,Alfa Romeo,0.0
+12,Hungarian,Williams,0.0
+12,Hungarian,Haas F1 Team,0.0
+13,Belgian,Ferrari,25.0
+13,Belgian,Mercedes,18.0
+13,Belgian,Mercedes,15.0
+13,Belgian,Ferrari,13.0
+13,Belgian,Red Bull,10.0
+13,Belgian,Racing Point,8.0
+13,Belgian,Toro Rosso,6.0
+13,Belgian,Renault,4.0
+13,Belgian,Toro Rosso,2.0
+13,Belgian,Racing Point,1.0
+13,Belgian,McLaren,0.0
+13,Belgian,Haas F1 Team,0.0
+13,Belgian,Haas F1 Team,0.0
+13,Belgian,Renault,0.0
+13,Belgian,Williams,0.0
+13,Belgian,Alfa Romeo,0.0
+13,Belgian,Williams,0.0
+13,Belgian,Alfa Romeo,0.0
+13,Belgian,McLaren,0.0
+13,Belgian,Red Bull,0.0
+14,Italian,Ferrari,25.0
+14,Italian,Mercedes,18.0
+14,Italian,Mercedes,16.0
+14,Italian,Renault,12.0
+14,Italian,Renault,10.0
+14,Italian,Red Bull,8.0
+14,Italian,Racing Point,6.0
+14,Italian,Red Bull,4.0
+14,Italian,Alfa Romeo,2.0
+14,Italian,McLaren,1.0
+14,Italian,Toro Rosso,0.0
+14,Italian,Racing Point,0.0
+14,Italian,Ferrari,0.0
+14,Italian,Williams,0.0
+14,Italian,Alfa Romeo,0.0
+14,Italian,Haas F1 Team,0.0
+14,Italian,Williams,0.0
+14,Italian,Haas F1 Team,0.0
+14,Italian,Toro Rosso,0.0
+14,Italian,McLaren,0.0
+15,Singapore,Ferrari,25.0
+15,Singapore,Ferrari,18.0
+15,Singapore,Red Bull,15.0
+15,Singapore,Mercedes,12.0
+15,Singapore,Mercedes,10.0
+15,Singapore,Red Bull,8.0
+15,Singapore,McLaren,6.0
+15,Singapore,Toro Rosso,4.0
+15,Singapore,Renault,2.0
+15,Singapore,Alfa Romeo,1.0
+15,Singapore,Haas F1 Team,0.0
+15,Singapore,McLaren,0.0
+15,Singapore,Racing Point,0.0
+15,Singapore,Renault,0.0
+15,Singapore,Toro Rosso,0.0
+15,Singapore,Williams,0.0
+15,Singapore,Haas F1 Team,0.0
+15,Singapore,Alfa Romeo,0.0
+15,Singapore,Racing Point,0.0
+15,Singapore,Williams,0.0
+16,Russian,Mercedes,26.0
+16,Russian,Mercedes,18.0
+16,Russian,Ferrari,15.0
+16,Russian,Red Bull,12.0
+16,Russian,Red Bull,10.0
+16,Russian,McLaren,8.0
+16,Russian,Racing Point,6.0
+16,Russian,McLaren,4.0
+16,Russian,Haas F1 Team,2.0
+16,Russian,Renault,1.0
+16,Russian,Racing Point,0.0
+16,Russian,Toro Rosso,0.0
+16,Russian,Alfa Romeo,0.0
+16,Russian,Toro Rosso,0.0
+16,Russian,Alfa Romeo,0.0
+16,Russian,Williams,0.0
+16,Russian,Williams,0.0
+16,Russian,Ferrari,0.0
+16,Russian,Renault,0.0
+16,Russian,Haas F1 Team,0.0
+17,Japanese,Mercedes,25.0
+17,Japanese,Ferrari,18.0
+17,Japanese,Mercedes,16.0
+17,Japanese,Red Bull,12.0
+17,Japanese,McLaren,10.0
+17,Japanese,Ferrari,8.0
+17,Japanese,Toro Rosso,6.0
+17,Japanese,Racing Point,4.0
+17,Japanese,Racing Point,2.0
+17,Japanese,Toro Rosso,1.0
+17,Japanese,McLaren,0.0
+17,Japanese,Alfa Romeo,0.0
+17,Japanese,Haas F1 Team,0.0
+17,Japanese,Alfa Romeo,0.0
+17,Japanese,Haas F1 Team,0.0
+17,Japanese,Williams,0.0
+17,Japanese,Williams,0.0
+17,Japanese,Red Bull,0.0
+17,Japanese,Renault,0.0
+17,Japanese,Renault,0.0
+18,Mexican,Mercedes,25.0
+18,Mexican,Ferrari,18.0
+18,Mexican,Mercedes,15.0
+18,Mexican,Ferrari,13.0
+18,Mexican,Red Bull,10.0
+18,Mexican,Red Bull,8.0
+18,Mexican,Racing Point,6.0
+18,Mexican,Renault,4.0
+18,Mexican,Toro Rosso,2.0
+18,Mexican,Renault,1.0
+18,Mexican,Toro Rosso,0.0
+18,Mexican,Racing Point,0.0
+18,Mexican,McLaren,0.0
+18,Mexican,Alfa Romeo,0.0
+18,Mexican,Haas F1 Team,0.0
+18,Mexican,Williams,0.0
+18,Mexican,Haas F1 Team,0.0
+18,Mexican,Williams,0.0
+18,Mexican,Alfa Romeo,0.0
+18,Mexican,McLaren,0.0
+19,United States,Mercedes,25.0
+19,United States,Mercedes,18.0
+19,United States,Red Bull,15.0
+19,United States,Ferrari,13.0
+19,United States,Red Bull,10.0
+19,United States,Renault,8.0
+19,United States,McLaren,6.0
+19,United States,McLaren,4.0
+19,United States,Renault,2.0
+19,United States,Racing Point,1.0
+19,United States,Alfa Romeo,0.0
+19,United States,Toro Rosso,0.0
+19,United States,Racing Point,0.0
+19,United States,Alfa Romeo,0.0
+19,United States,Haas F1 Team,0.0
+19,United States,Toro Rosso,0.0
+19,United States,Williams,0.0
+19,United States,Haas F1 Team,0.0
+19,United States,Williams,0.0
+19,United States,Ferrari,0.0
+20,Brazilian,Red Bull,25.0
+20,Brazilian,Toro Rosso,18.0
+20,Brazilian,McLaren,15.0
+20,Brazilian,Alfa Romeo,12.0
+20,Brazilian,Alfa Romeo,10.0
+20,Brazilian,Renault,8.0
+20,Brazilian,Mercedes,6.0
+20,Brazilian,McLaren,4.0
+20,Brazilian,Racing Point,2.0
+20,Brazilian,Toro Rosso,1.0
+20,Brazilian,Haas F1 Team,0.0
+20,Brazilian,Williams,0.0
+20,Brazilian,Haas F1 Team,0.0
+20,Brazilian,Red Bull,0.0
+20,Brazilian,Renault,0.0
+20,Brazilian,Williams,0.0
+20,Brazilian,Ferrari,0.0
+20,Brazilian,Ferrari,0.0
+20,Brazilian,Racing Point,0.0
+20,Brazilian,Mercedes,0.0
+21,Abu Dhabi,Mercedes,26.0
+21,Abu Dhabi,Red Bull,18.0
+21,Abu Dhabi,Ferrari,15.0
+21,Abu Dhabi,Mercedes,12.0
+21,Abu Dhabi,Ferrari,10.0
+21,Abu Dhabi,Red Bull,8.0
+21,Abu Dhabi,Racing Point,6.0
+21,Abu Dhabi,McLaren,4.0
+21,Abu Dhabi,Toro Rosso,2.0
+21,Abu Dhabi,McLaren,1.0
+21,Abu Dhabi,Renault,0.0
+21,Abu Dhabi,Renault,0.0
+21,Abu Dhabi,Alfa Romeo,0.0
+21,Abu Dhabi,Haas F1 Team,0.0
+21,Abu Dhabi,Haas F1 Team,0.0
+21,Abu Dhabi,Alfa Romeo,0.0
+21,Abu Dhabi,Williams,0.0
+21,Abu Dhabi,Toro Rosso,0.0
+21,Abu Dhabi,Williams,0.0
+21,Abu Dhabi,Racing Point,0.0
