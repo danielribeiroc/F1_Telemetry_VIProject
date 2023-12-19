@@ -25,7 +25,7 @@ additional_image_path = 'https://www.msengineering.ch/typo3conf/ext/msengineerin
 "----------------------------------------------- Charge DATA - only cloud ---------------------------------------------"
 
 # data = load_f1_data()
-
+fig_default = go.Figure(layout={"title": {"text": f"No data yet"}})
 "---------------------------------------------------- Dash - html -----------------------------------------------------"
 
 "----------------------- Modal vue --------------------------------"
@@ -229,7 +229,7 @@ app.layout = dbc.Container([
                 html.H3("Différence de vitesse durant la phase de qualification", style={'margin-top': '10px'}),
                 dcc.Loading(
                     id="fastestLaps",
-                    children=[dcc.Graph(id="fastests-laps")],
+                    children=[dcc.Graph(id="fastest-laps", figure=fig_default)],
                     type="circle",
                 )
             ]),
@@ -428,10 +428,11 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
         return [dcc.Dropdown(id='dropdown-4', options=["None"], className='mb-3')], ["None"], ["None"], False
 
 
-@app.long_callback(
+@app.callback(
     output=[Output(component_id='bar-graph-matplotlib', component_property="src"),
             Output(component_id='overlaying', component_property="figure")],
     inputs=[Input("button_id", "n_clicks")],
+    background=True,
     state=[State('dropdown-11', 'value'),
            State('dropdown-12', 'value'),
            State('dropdown-3', 'value'),
@@ -450,10 +451,11 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
 
 
 @app.callback(
-    output=[Output(component_id='fastests-laps', component_property="figure"),
+    output=[Output(component_id='fastest-laps', component_property="figure"),
             Output(component_id='positions-laps', component_property="figure"),
             Output(component_id='teams-speeds', component_property="figure")],
     inputs=[Input("button_id_2", "n_clicks")],
+    background=True,
     state=[State("dropdown-21", "value"),
            State("dropdown-22", "value")],
     running=[(Output("button_id_2", "disabled"), True, False),
@@ -479,7 +481,6 @@ def plot_data_tab_2(n_clicks, year, race):
     except Exception as e:
         # Handle the error here
         print(f"Error occurred: {e}")
-
     print("Done")
 
     return fig_fastest_laps, fig_positions_laps, fig_teams_speeds
@@ -501,5 +502,5 @@ def plot_data_tab_3(year):
 "---------------------------------------------- Launch Application ----------------------------------------------------"
 if __name__ == '__main__':
     print("Starting Server !")
-    # app.run_server(debug=True, port=8082)
-    app.run_server(debug=False, host='0.0.0.0', port=9000)
+    app.run_server(debug=True, port=8082)
+    #app.run_server(debug=False, host='0.0.0.0', port=9000)
