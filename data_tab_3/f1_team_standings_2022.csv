@@ -1,0 +1,501 @@
+round,race,constructorName,points
+1,Bahrain,Ferrari,26.0
+1,Bahrain,Ferrari,18.0
+1,Bahrain,Mercedes,15.0
+1,Bahrain,Mercedes,12.0
+1,Bahrain,Haas F1 Team,10.0
+1,Bahrain,Alfa Romeo,8.0
+1,Bahrain,Alpine F1 Team,6.0
+1,Bahrain,AlphaTauri,4.0
+1,Bahrain,Alpine F1 Team,2.0
+1,Bahrain,Alfa Romeo,1.0
+1,Bahrain,Haas F1 Team,0.0
+1,Bahrain,Aston Martin,0.0
+1,Bahrain,Williams,0.0
+1,Bahrain,McLaren,0.0
+1,Bahrain,McLaren,0.0
+1,Bahrain,Williams,0.0
+1,Bahrain,Aston Martin,0.0
+1,Bahrain,Red Bull,0.0
+1,Bahrain,Red Bull,0.0
+1,Bahrain,AlphaTauri,0.0
+2,Saudi Arabian,Red Bull,25.0
+2,Saudi Arabian,Ferrari,19.0
+2,Saudi Arabian,Ferrari,15.0
+2,Saudi Arabian,Red Bull,12.0
+2,Saudi Arabian,Mercedes,10.0
+2,Saudi Arabian,Alpine F1 Team,8.0
+2,Saudi Arabian,McLaren,6.0
+2,Saudi Arabian,AlphaTauri,4.0
+2,Saudi Arabian,Haas F1 Team,2.0
+2,Saudi Arabian,Mercedes,1.0
+2,Saudi Arabian,Alfa Romeo,0.0
+2,Saudi Arabian,Aston Martin,0.0
+2,Saudi Arabian,Aston Martin,0.0
+2,Saudi Arabian,Williams,0.0
+2,Saudi Arabian,Alfa Romeo,0.0
+2,Saudi Arabian,Alpine F1 Team,0.0
+2,Saudi Arabian,McLaren,0.0
+2,Saudi Arabian,Williams,0.0
+2,Saudi Arabian,AlphaTauri,0.0
+2,Saudi Arabian,Haas F1 Team,0.0
+3,Australian,Ferrari,26.0
+3,Australian,Red Bull,18.0
+3,Australian,Mercedes,15.0
+3,Australian,Mercedes,12.0
+3,Australian,McLaren,10.0
+3,Australian,McLaren,8.0
+3,Australian,Alpine F1 Team,6.0
+3,Australian,Alfa Romeo,4.0
+3,Australian,AlphaTauri,2.0
+3,Australian,Williams,1.0
+3,Australian,Alfa Romeo,0.0
+3,Australian,Aston Martin,0.0
+3,Australian,Haas F1 Team,0.0
+3,Australian,Haas F1 Team,0.0
+3,Australian,AlphaTauri,0.0
+3,Australian,Williams,0.0
+3,Australian,Alpine F1 Team,0.0
+3,Australian,Red Bull,0.0
+3,Australian,Aston Martin,0.0
+3,Australian,Ferrari,0.0
+4,Emilia Romagna,Red Bull,34.0
+4,Emilia Romagna,Red Bull,32.0
+4,Emilia Romagna,Red Bull,26.0
+4,Emilia Romagna,Red Bull,24.0
+4,Emilia Romagna,McLaren,19.0
+4,Emilia Romagna,McLaren,18.0
+4,Emilia Romagna,Mercedes,12.0
+4,Emilia Romagna,Mercedes,12.0
+4,Emilia Romagna,Alfa Romeo,12.0
+4,Emilia Romagna,Alfa Romeo,10.0
+4,Emilia Romagna,Ferrari,15.0
+4,Emilia Romagna,Ferrari,13.0
+4,Emilia Romagna,AlphaTauri,6.0
+4,Emilia Romagna,AlphaTauri,6.0
+4,Emilia Romagna,Aston Martin,4.0
+4,Emilia Romagna,Aston Martin,4.0
+4,Emilia Romagna,Haas F1 Team,3.0
+4,Emilia Romagna,Haas F1 Team,2.0
+4,Emilia Romagna,Aston Martin,1.0
+4,Emilia Romagna,Aston Martin,1.0
+4,Emilia Romagna,Williams,0.0
+4,Emilia Romagna,Williams,0.0
+4,Emilia Romagna,AlphaTauri,0.0
+4,Emilia Romagna,AlphaTauri,0.0
+4,Emilia Romagna,Mercedes,0.0
+4,Emilia Romagna,Mercedes,0.0
+4,Emilia Romagna,Alpine F1 Team,0.0
+4,Emilia Romagna,Alpine F1 Team,0.0
+4,Emilia Romagna,Alfa Romeo,2.0
+4,Emilia Romagna,Alfa Romeo,0.0
+4,Emilia Romagna,Williams,0.0
+4,Emilia Romagna,Williams,0.0
+4,Emilia Romagna,Haas F1 Team,1.0
+4,Emilia Romagna,Haas F1 Team,0.0
+4,Emilia Romagna,McLaren,4.0
+4,Emilia Romagna,McLaren,3.0
+4,Emilia Romagna,Alpine F1 Team,0.0
+4,Emilia Romagna,Alpine F1 Team,0.0
+4,Emilia Romagna,Ferrari,7.0
+4,Emilia Romagna,Ferrari,5.0
+5,Miami,Red Bull,26.0
+5,Miami,Ferrari,18.0
+5,Miami,Ferrari,15.0
+5,Miami,Red Bull,12.0
+5,Miami,Mercedes,10.0
+5,Miami,Mercedes,8.0
+5,Miami,Alfa Romeo,6.0
+5,Miami,Alpine F1 Team,4.0
+5,Miami,Williams,2.0
+5,Miami,Aston Martin,1.0
+5,Miami,Alpine F1 Team,0.0
+5,Miami,AlphaTauri,0.0
+5,Miami,McLaren,0.0
+5,Miami,Williams,0.0
+5,Miami,Haas F1 Team,0.0
+5,Miami,Haas F1 Team,0.0
+5,Miami,Aston Martin,0.0
+5,Miami,AlphaTauri,0.0
+5,Miami,McLaren,0.0
+5,Miami,Alfa Romeo,0.0
+6,Spanish,Red Bull,25.0
+6,Spanish,Red Bull,19.0
+6,Spanish,Mercedes,15.0
+6,Spanish,Ferrari,12.0
+6,Spanish,Mercedes,10.0
+6,Spanish,Alfa Romeo,8.0
+6,Spanish,Alpine F1 Team,6.0
+6,Spanish,McLaren,4.0
+6,Spanish,Alpine F1 Team,2.0
+6,Spanish,AlphaTauri,1.0
+6,Spanish,Aston Martin,0.0
+6,Spanish,McLaren,0.0
+6,Spanish,AlphaTauri,0.0
+6,Spanish,Haas F1 Team,0.0
+6,Spanish,Aston Martin,0.0
+6,Spanish,Williams,0.0
+6,Spanish,Haas F1 Team,0.0
+6,Spanish,Williams,0.0
+6,Spanish,Alfa Romeo,0.0
+6,Spanish,Ferrari,0.0
+7,Monaco,Red Bull,25.0
+7,Monaco,Ferrari,18.0
+7,Monaco,Red Bull,15.0
+7,Monaco,Ferrari,12.0
+7,Monaco,Mercedes,10.0
+7,Monaco,McLaren,9.0
+7,Monaco,Alpine F1 Team,6.0
+7,Monaco,Mercedes,4.0
+7,Monaco,Alfa Romeo,2.0
+7,Monaco,Aston Martin,1.0
+7,Monaco,AlphaTauri,0.0
+7,Monaco,Alpine F1 Team,0.0
+7,Monaco,McLaren,0.0
+7,Monaco,Aston Martin,0.0
+7,Monaco,Williams,0.0
+7,Monaco,Alfa Romeo,0.0
+7,Monaco,AlphaTauri,0.0
+7,Monaco,Williams,0.0
+7,Monaco,Haas F1 Team,0.0
+7,Monaco,Haas F1 Team,0.0
+8,Azerbaijan,Red Bull,25.0
+8,Azerbaijan,Red Bull,19.0
+8,Azerbaijan,Mercedes,15.0
+8,Azerbaijan,Mercedes,12.0
+8,Azerbaijan,AlphaTauri,10.0
+8,Azerbaijan,Aston Martin,8.0
+8,Azerbaijan,Alpine F1 Team,6.0
+8,Azerbaijan,McLaren,4.0
+8,Azerbaijan,McLaren,2.0
+8,Azerbaijan,Alpine F1 Team,1.0
+8,Azerbaijan,Alfa Romeo,0.0
+8,Azerbaijan,Williams,0.0
+8,Azerbaijan,AlphaTauri,0.0
+8,Azerbaijan,Haas F1 Team,0.0
+8,Azerbaijan,Williams,0.0
+8,Azerbaijan,Aston Martin,0.0
+8,Azerbaijan,Haas F1 Team,0.0
+8,Azerbaijan,Alfa Romeo,0.0
+8,Azerbaijan,Ferrari,0.0
+8,Azerbaijan,Ferrari,0.0
+9,Canadian,Red Bull,25.0
+9,Canadian,Ferrari,19.0
+9,Canadian,Mercedes,15.0
+9,Canadian,Mercedes,12.0
+9,Canadian,Ferrari,10.0
+9,Canadian,Alpine F1 Team,8.0
+9,Canadian,Alfa Romeo,6.0
+9,Canadian,Alfa Romeo,4.0
+9,Canadian,Alpine F1 Team,2.0
+9,Canadian,Aston Martin,1.0
+9,Canadian,McLaren,0.0
+9,Canadian,Aston Martin,0.0
+9,Canadian,Williams,0.0
+9,Canadian,AlphaTauri,0.0
+9,Canadian,McLaren,0.0
+9,Canadian,Williams,0.0
+9,Canadian,Haas F1 Team,0.0
+9,Canadian,AlphaTauri,0.0
+9,Canadian,Haas F1 Team,0.0
+9,Canadian,Red Bull,0.0
+10,British,Ferrari,25.0
+10,British,Red Bull,18.0
+10,British,Mercedes,16.0
+10,British,Ferrari,12.0
+10,British,Alpine F1 Team,10.0
+10,British,McLaren,8.0
+10,British,Red Bull,6.0
+10,British,Haas F1 Team,4.0
+10,British,Aston Martin,2.0
+10,British,Haas F1 Team,1.0
+10,British,Aston Martin,0.0
+10,British,Williams,0.0
+10,British,McLaren,0.0
+10,British,AlphaTauri,0.0
+10,British,Alpine F1 Team,0.0
+10,British,AlphaTauri,0.0
+10,British,Alfa Romeo,0.0
+10,British,Mercedes,0.0
+10,British,Alfa Romeo,0.0
+10,British,Williams,0.0
+11,Austrian,Ferrari,32.0
+11,Austrian,Ferrari,31.0
+11,Austrian,Red Bull,27.0
+11,Austrian,Red Bull,23.0
+11,Austrian,Mercedes,20.0
+11,Austrian,Mercedes,16.0
+11,Austrian,Mercedes,17.0
+11,Austrian,Mercedes,13.0
+11,Austrian,Alpine F1 Team,13.0
+11,Austrian,Alpine F1 Team,10.0
+11,Austrian,Haas F1 Team,10.0
+11,Austrian,Haas F1 Team,8.0
+11,Austrian,McLaren,6.0
+11,Austrian,McLaren,6.0
+11,Austrian,Haas F1 Team,6.0
+11,Austrian,Haas F1 Team,4.0
+11,Austrian,McLaren,2.0
+11,Austrian,McLaren,2.0
+11,Austrian,Alpine F1 Team,4.0
+11,Austrian,Alpine F1 Team,1.0
+11,Austrian,Alfa Romeo,0.0
+11,Austrian,Alfa Romeo,0.0
+11,Austrian,Williams,0.0
+11,Austrian,Williams,0.0
+11,Austrian,Aston Martin,0.0
+11,Austrian,Aston Martin,0.0
+11,Austrian,Alfa Romeo,0.0
+11,Austrian,Alfa Romeo,0.0
+11,Austrian,AlphaTauri,0.0
+11,Austrian,AlphaTauri,0.0
+11,Austrian,AlphaTauri,0.0
+11,Austrian,AlphaTauri,0.0
+11,Austrian,Aston Martin,0.0
+11,Austrian,Aston Martin,0.0
+11,Austrian,Ferrari,7.0
+11,Austrian,Ferrari,6.0
+11,Austrian,Williams,0.0
+11,Austrian,Williams,0.0
+11,Austrian,Red Bull,8.0
+11,Austrian,Red Bull,4.0
+12,French,Red Bull,25.0
+12,French,Mercedes,18.0
+12,French,Mercedes,15.0
+12,French,Red Bull,12.0
+12,French,Ferrari,11.0
+12,French,Alpine F1 Team,8.0
+12,French,McLaren,6.0
+12,French,Alpine F1 Team,4.0
+12,French,McLaren,2.0
+12,French,Aston Martin,1.0
+12,French,Aston Martin,0.0
+12,French,AlphaTauri,0.0
+12,French,Williams,0.0
+12,French,Alfa Romeo,0.0
+12,French,Haas F1 Team,0.0
+12,French,Alfa Romeo,0.0
+12,French,Williams,0.0
+12,French,Haas F1 Team,0.0
+12,French,Ferrari,0.0
+12,French,AlphaTauri,0.0
+13,Hungarian,Red Bull,25.0
+13,Hungarian,Mercedes,19.0
+13,Hungarian,Mercedes,15.0
+13,Hungarian,Ferrari,12.0
+13,Hungarian,Red Bull,10.0
+13,Hungarian,Ferrari,8.0
+13,Hungarian,McLaren,6.0
+13,Hungarian,Alpine F1 Team,4.0
+13,Hungarian,Alpine F1 Team,2.0
+13,Hungarian,Aston Martin,1.0
+13,Hungarian,Aston Martin,0.0
+13,Hungarian,AlphaTauri,0.0
+13,Hungarian,Alfa Romeo,0.0
+13,Hungarian,Haas F1 Team,0.0
+13,Hungarian,McLaren,0.0
+13,Hungarian,Haas F1 Team,0.0
+13,Hungarian,Williams,0.0
+13,Hungarian,Williams,0.0
+13,Hungarian,AlphaTauri,0.0
+13,Hungarian,Alfa Romeo,0.0
+14,Belgian,Red Bull,26.0
+14,Belgian,Red Bull,18.0
+14,Belgian,Ferrari,15.0
+14,Belgian,Mercedes,12.0
+14,Belgian,Alpine F1 Team,10.0
+14,Belgian,Ferrari,8.0
+14,Belgian,Alpine F1 Team,6.0
+14,Belgian,Aston Martin,4.0
+14,Belgian,AlphaTauri,2.0
+14,Belgian,Williams,1.0
+14,Belgian,Aston Martin,0.0
+14,Belgian,McLaren,0.0
+14,Belgian,AlphaTauri,0.0
+14,Belgian,Alfa Romeo,0.0
+14,Belgian,McLaren,0.0
+14,Belgian,Haas F1 Team,0.0
+14,Belgian,Haas F1 Team,0.0
+14,Belgian,Williams,0.0
+14,Belgian,Alfa Romeo,0.0
+14,Belgian,Mercedes,0.0
+15,Dutch,Red Bull,26.0
+15,Dutch,Mercedes,18.0
+15,Dutch,Ferrari,15.0
+15,Dutch,Mercedes,12.0
+15,Dutch,Red Bull,10.0
+15,Dutch,Alpine F1 Team,8.0
+15,Dutch,McLaren,6.0
+15,Dutch,Ferrari,4.0
+15,Dutch,Alpine F1 Team,2.0
+15,Dutch,Aston Martin,1.0
+15,Dutch,AlphaTauri,0.0
+15,Dutch,Williams,0.0
+15,Dutch,Haas F1 Team,0.0
+15,Dutch,Aston Martin,0.0
+15,Dutch,Haas F1 Team,0.0
+15,Dutch,Alfa Romeo,0.0
+15,Dutch,McLaren,0.0
+15,Dutch,Williams,0.0
+15,Dutch,Alfa Romeo,0.0
+15,Dutch,AlphaTauri,0.0
+16,Italian,Red Bull,25.0
+16,Italian,Ferrari,18.0
+16,Italian,Mercedes,15.0
+16,Italian,Ferrari,12.0
+16,Italian,Mercedes,10.0
+16,Italian,Red Bull,9.0
+16,Italian,McLaren,6.0
+16,Italian,AlphaTauri,4.0
+16,Italian,Williams,2.0
+16,Italian,Alfa Romeo,1.0
+16,Italian,Alpine F1 Team,0.0
+16,Italian,Haas F1 Team,0.0
+16,Italian,Alfa Romeo,0.0
+16,Italian,AlphaTauri,0.0
+16,Italian,Williams,0.0
+16,Italian,Haas F1 Team,0.0
+16,Italian,McLaren,0.0
+16,Italian,Aston Martin,0.0
+16,Italian,Alpine F1 Team,0.0
+16,Italian,Aston Martin,0.0
+17,Singapore,Red Bull,25.0
+17,Singapore,Ferrari,18.0
+17,Singapore,Ferrari,15.0
+17,Singapore,McLaren,12.0
+17,Singapore,McLaren,10.0
+17,Singapore,Aston Martin,8.0
+17,Singapore,Red Bull,6.0
+17,Singapore,Aston Martin,4.0
+17,Singapore,Mercedes,2.0
+17,Singapore,AlphaTauri,1.0
+17,Singapore,Alfa Romeo,0.0
+17,Singapore,Haas F1 Team,0.0
+17,Singapore,Haas F1 Team,0.0
+17,Singapore,Mercedes,0.0
+17,Singapore,AlphaTauri,0.0
+17,Singapore,Alpine F1 Team,0.0
+17,Singapore,Williams,0.0
+17,Singapore,Alpine F1 Team,0.0
+17,Singapore,Williams,0.0
+17,Singapore,Alfa Romeo,0.0
+18,Japanese,Red Bull,25.0
+18,Japanese,Red Bull,18.0
+18,Japanese,Ferrari,15.0
+18,Japanese,Alpine F1 Team,12.0
+18,Japanese,Mercedes,10.0
+18,Japanese,Aston Martin,8.0
+18,Japanese,Alpine F1 Team,6.0
+18,Japanese,Mercedes,4.0
+18,Japanese,Williams,2.0
+18,Japanese,McLaren,1.0
+18,Japanese,McLaren,0.0
+18,Japanese,Aston Martin,0.0
+18,Japanese,AlphaTauri,0.0
+18,Japanese,Haas F1 Team,0.0
+18,Japanese,Alfa Romeo,0.0
+18,Japanese,Alfa Romeo,0.0
+18,Japanese,Haas F1 Team,0.0
+18,Japanese,AlphaTauri,0.0
+18,Japanese,Ferrari,0.0
+18,Japanese,Williams,0.0
+19,United States,Red Bull,25.0
+19,United States,Mercedes,18.0
+19,United States,Ferrari,15.0
+19,United States,Red Bull,12.0
+19,United States,Mercedes,11.0
+19,United States,McLaren,8.0
+19,United States,Alpine F1 Team,6.0
+19,United States,Aston Martin,4.0
+19,United States,Haas F1 Team,2.0
+19,United States,AlphaTauri,1.0
+19,United States,Alpine F1 Team,0.0
+19,United States,Alfa Romeo,0.0
+19,United States,Williams,0.0
+19,United States,AlphaTauri,0.0
+19,United States,Haas F1 Team,0.0
+19,United States,McLaren,0.0
+19,United States,Williams,0.0
+19,United States,Aston Martin,0.0
+19,United States,Alfa Romeo,0.0
+19,United States,Ferrari,0.0
+20,Mexico City,Red Bull,25.0
+20,Mexico City,Mercedes,18.0
+20,Mexico City,Red Bull,15.0
+20,Mexico City,Mercedes,13.0
+20,Mexico City,Ferrari,10.0
+20,Mexico City,Ferrari,8.0
+20,Mexico City,McLaren,6.0
+20,Mexico City,Alpine F1 Team,4.0
+20,Mexico City,McLaren,2.0
+20,Mexico City,Alfa Romeo,1.0
+20,Mexico City,AlphaTauri,0.0
+20,Mexico City,Williams,0.0
+20,Mexico City,Alfa Romeo,0.0
+20,Mexico City,Aston Martin,0.0
+20,Mexico City,Aston Martin,0.0
+20,Mexico City,Haas F1 Team,0.0
+20,Mexico City,Haas F1 Team,0.0
+20,Mexico City,Williams,0.0
+20,Mexico City,Alpine F1 Team,0.0
+20,Mexico City,AlphaTauri,0.0
+21,São Paulo,Mercedes,34.0
+21,São Paulo,Mercedes,32.0
+21,São Paulo,Mercedes,26.0
+21,São Paulo,Mercedes,24.0
+21,São Paulo,Ferrari,22.0
+21,São Paulo,Ferrari,18.0
+21,São Paulo,Ferrari,19.0
+21,São Paulo,Ferrari,15.0
+21,São Paulo,Alpine F1 Team,10.0
+21,São Paulo,Alpine F1 Team,10.0
+21,São Paulo,Red Bull,13.0
+21,São Paulo,Red Bull,12.0
+21,São Paulo,Red Bull,11.0
+21,São Paulo,Red Bull,10.0
+21,São Paulo,Alpine F1 Team,4.0
+21,São Paulo,Alpine F1 Team,4.0
+21,São Paulo,Alfa Romeo,2.0
+21,São Paulo,Alfa Romeo,2.0
+21,São Paulo,Aston Martin,1.0
+21,São Paulo,Aston Martin,1.0
+21,São Paulo,Aston Martin,0.0
+21,São Paulo,Aston Martin,0.0
+21,São Paulo,Alfa Romeo,0.0
+21,São Paulo,Alfa Romeo,0.0
+21,São Paulo,Haas F1 Team,1.0
+21,São Paulo,Haas F1 Team,0.0
+21,São Paulo,AlphaTauri,0.0
+21,São Paulo,AlphaTauri,0.0
+21,São Paulo,Williams,0.0
+21,São Paulo,Williams,0.0
+21,São Paulo,Williams,0.0
+21,São Paulo,Williams,0.0
+21,São Paulo,AlphaTauri,0.0
+21,São Paulo,AlphaTauri,0.0
+21,São Paulo,McLaren,2.0
+21,São Paulo,McLaren,0.0
+21,São Paulo,Haas F1 Team,1.0
+21,São Paulo,Haas F1 Team,0.0
+21,São Paulo,McLaren,2.0
+21,São Paulo,McLaren,0.0
+22,Abu Dhabi,Red Bull,25.0
+22,Abu Dhabi,Ferrari,18.0
+22,Abu Dhabi,Red Bull,15.0
+22,Abu Dhabi,Ferrari,12.0
+22,Abu Dhabi,Mercedes,10.0
+22,Abu Dhabi,McLaren,9.0
+22,Abu Dhabi,Alpine F1 Team,6.0
+22,Abu Dhabi,Aston Martin,4.0
+22,Abu Dhabi,McLaren,2.0
+22,Abu Dhabi,Aston Martin,1.0
+22,Abu Dhabi,AlphaTauri,0.0
+22,Abu Dhabi,Alfa Romeo,0.0
+22,Abu Dhabi,Williams,0.0
+22,Abu Dhabi,AlphaTauri,0.0
+22,Abu Dhabi,Alfa Romeo,0.0
+22,Abu Dhabi,Haas F1 Team,0.0
+22,Abu Dhabi,Haas F1 Team,0.0
+22,Abu Dhabi,Mercedes,0.0
+22,Abu Dhabi,Williams,0.0
+22,Abu Dhabi,Alpine F1 Team,0.0

@@ -67,14 +67,25 @@ def plot_standings_by_teams(Year):
     fig = px.imshow(
         results,
         text_auto=True,
-        aspect='auto',
-        color_continuous_scale=[[0, 'rgb(198, 219, 239)'], [0.25, 'rgb(107, 174, 214)'],
-                                [0.5, 'rgb(33, 113, 181)'], [0.75, 'rgb(8, 81, 156)'],
-                                [1, 'rgb(8, 48, 107)']],
-        labels={'x': 'Race', 'y': 'Team', 'color': 'Points'}
+        aspect='auto',  # Automatically adjust the aspect ratio
+        color_continuous_scale=[[0, 'rgb(198, 219, 239)'],  # Blue scale
+                                [0.25, 'rgb(107, 174, 214)'],
+                                [0.5, 'rgb(33,  113, 181)'],
+                                [0.75, 'rgb(8,   81,  156)'],
+                                [1, 'rgb(8,   48,  107)']],
+        labels={'x': 'Race',
+                'y': 'Driver',
+                'color': 'Points'}  # Change hover texts
     )
-    fig.update_xaxes(title_text='').update_yaxes(title_text='').update_yaxes(tickmode='linear').update_yaxes(
-        showgrid=True, gridwidth=1, gridcolor='LightGrey', showline=False, tickson='boundaries').update_xaxes(
-        showgrid=False, showline=False).update_layout(plot_bgcolor='rgba(0,0,0,0)').update_layout(
-        coloraxis_showscale=False).update_layout(xaxis=dict(side='top')).update_layout(margin=dict(l=0, r=0, b=0, t=0))
+    fig.update_xaxes(title_text='')  # Remove axis titles
+    fig.update_yaxes(title_text='')
+    fig.update_yaxes(tickmode='linear')  # Show all ticks, i.e. driver names
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='LightGrey',
+                     showline=False,
+                     tickson='boundaries')  # Show horizontal grid only
+    fig.update_xaxes(showgrid=False, showline=False)  # And remove vertical grid
+    fig.update_layout(plot_bgcolor='rgba(0,0,0,0)')  # White background
+    fig.update_layout(coloraxis_showscale=False)  # Remove legend
+    fig.update_layout(xaxis=dict(side='top'))  # x-axis on top
+    fig.update_layout(margin=dict(l=0, r=0, b=0, t=0))  # Remove border margins
     return fig
