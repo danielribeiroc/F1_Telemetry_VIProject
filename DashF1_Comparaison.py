@@ -76,7 +76,9 @@ app.layout = dbc.Container([
         dbc.Col(html.Img(src=additional_image_path, height="75px"), width=2, align='center')
     ], align='center', className='mb-4 mt-4'),
     html.Div([
-        dbc.Button("▼", id="toggle-text-button", color="black", className="mb-3"),
+        dbc.Button("▼", id="toggle-text-button", color="black", className="mb-3",
+                   style={'box-shadow': '3px 3px 5px grey'}  # Adding shadow effect
+                   ),
         dbc.Collapse(
             html.Div(id="text-content", children=[
                 html.P(
@@ -88,7 +90,8 @@ app.layout = dbc.Container([
                 html.P(
                     "N'hésitez pas à explorer ces onglets pour une expérience complète et immersive des statistiques et analyses de la F1.")
             ], style={'font-weight': 'bold'}),
-            id='collapse'
+            id='collapse',
+            is_open=True
         )
     ]),
     dcc.Tabs(id='tabs', value='tab-1', children=[
@@ -433,10 +436,9 @@ def update_dropdown_4(selected_year, selected_month, selected_day):
            State('dropdown-12', 'value'),
            State('dropdown-3', 'value'),
            State('dropdown-4', 'value')],
-    running=[
-        (Output("button_id", "disabled"), True, False),
-        (Output("cancel_button_id", "disabled"), False, True),
-    ],
+    running=[(Output("button_id", "disabled"), True, False),
+             (Output("cancel_button_id", "disabled"), False, True),
+             ],
     cancel=[Input("cancel_button_id", "n_clicks")],
 )
 def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
@@ -455,7 +457,7 @@ def plot_data_tab_1(n_clicks, year, race, driver1, driver2):
     state=[State("dropdown-21", "value"),
            State("dropdown-22", "value")],
     running=[(Output("button_id_2", "disabled"), True, False),
-             (Output("cancel_button_id_2", "disabled"), False, True)
+             (Output("cancel_button_id_2", "disabled"), False, True),
              ],
     cancel=[Input("cancel_button_id_2", "n_clicks")]
 )
@@ -473,6 +475,7 @@ def plot_data_tab_2(n_clicks, year, race):
         fig_fastest_laps = plot_fastests_laps(year, race)
         fig_positions_laps = plot_positions_laps(year, race)
         fig_teams_speeds = plot_teams_speeds_laps(year, race)
+
     except Exception as e:
         # Handle the error here
         print(f"Error occurred: {e}")
@@ -498,5 +501,5 @@ def plot_data_tab_3(year):
 "---------------------------------------------- Launch Application ----------------------------------------------------"
 if __name__ == '__main__':
     print("Starting Server !")
-    app.run_server(debug=True, port=8082)
-    # app.run_server(debug=True, host='0.0.0.0', port=9000)
+    # app.run_server(debug=True, port=8082)
+    app.run_server(debug=False, host='0.0.0.0', port=9000)
