@@ -33,7 +33,7 @@ Après la construction de l'image, lancez l'application avec :
 
 Ouvrez un navigateur web et allez à l'adresse **http://localhost:9002** Vous devriez voir l'application Dash en cours d'exécution. 
 
-- **PS** : Le premier chargement du tab 1 peut être assez long au début en raison des appels à l'API FastF1. Les données sont ensuite ajouter dans le cache local de l'application afin d'améliorer la rapidité de celle-ci.
+- **PS** : Le premier chargement du tab 1 peut être assez long au début en raison des appels à l'API FastF1. Les données sont ensuite ajouter dans le cache local de l'application afin d'améliorer la rapidité de celle-ci. Certaines erreurs peuvent même arriver mais juste relancer en cliquant sur **Comparer les 2 pilotes** et être patient cela devrait fonctionner sans souci.
 
 ## Description projet - Ma_VI_Master_Engineering - Data Science
 
