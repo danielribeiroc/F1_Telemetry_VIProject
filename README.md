@@ -3,11 +3,35 @@
 - Ruben Terceiro
 - Daniel Ribeiro Cabral
 
-# Launch Dockerfile
+# Prérequis 
 
- - `docker build -t f1_app .`
- - `docker run -h localhost -p 9002:9000 -d --name f1_app_container f1_app`
- - `localhost:9002`
+Assurez-vous que les outils suivants sont installés sur votre ordinateur :
+
+- Git : pour cloner le projet depuis GitHub.
+- Docker : pour construire et exécuter le conteneur de l'application.
+# Lancer le projet F1 - Telemetry
+
+## Étape 1 : Cloner le Projet depuis GitHub
+
+Ouvrez le terminal ou l'invite de commande et exécutez la commande suivante pour cloner le projet :
+- `https://github.com/danielribeiroc/F1_Telemetry_VIProject.git`
+- `cd F1_Telemetry_VIProject`
+
+## Étape 2 : Vérifier le Dockerfile
+
+Avant de construire l'image Docker, vérifiez que le **Dockerfile** existe à la racine du projet.
+## Étape 3 : Build l'Image Docker
+Toujours dans le terminal, exécutez la commande suivante pour construire l'image Docker :
+- `docker build -t dashf1_app .`
+
+## Étape 4 : Exécuter l'Application dans Docker
+Après la construction de l'image, lancez l'application avec :
+
+ - `docker run -h localhost -p 9002:9000 -d --name f1_app_container dashf1_app`
+
+## Étape 5 : Accéder à l'Application Dash via le localhost
+
+Ouvrez un navigateur web et allez à l'adresse **http://localhost:9002** Vous devriez voir l'application Dash en cours d'exécution.
 
 ## Description projet - Ma_VI_Master_Engineering - Data Science
 
@@ -46,25 +70,3 @@
 **Lien du projet :** [Github Project](https://github.com/danielribeiroc/F1_Telemetry_VIProject)
 
 **Date de présentation souhaitée :** Janvier 2024
-
-## Mise en place de l'environnement conda
-- Installez [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/) ou [Anaconda](https://www.anaconda.com/) 
-- Création d'un environnement conda pour ce projet : 
-`conda create --name F1_Telemetry_VIProject python=3.8`
-- Activez l'environnement Conda en utilisant la commande suivante (assurez-vous de le faire chaque fois que vous travaillez sur votre projet)
-: `conda activate F1_Telemetry_VIProject`
-- Installez les packages requis dans l'environnement Conda : ``pip install -r requirements.txt``
-- Version de Python : 3.10
-
-## Mise en place de l'environnement conda sur Pycharm
-
-1. **Ouverture de Projet** : Ouvrez votre projet dans PyCharm.
-2. **Accès aux Paramètres** : Allez dans File (Fichier) > Settings (Paramètres) sur Windows/Linux ou PyCharm > Preferences sur macOS.
-
-3. **Sélection de l'Environnement Conda** : 
-- Dans le panneau de gauche, allez à Project: **F1_Telemetry_VIProject > Python Interpreter**.
-- Cliquez sur l'icône d'engrenage en haut à droite du panneau de l'interpréteur et sélectionnez **Add...** 
-- Choisissez `Conda Environment`
-- Sélectionnez `Existing environment` et parcourez le chemin de votre environnement Conda, généralement situé dans le répertoire Anaconda ou Miniconda.
-- Sélectionnez le fichier `python` dans le répertoire de votre environnement Conda
-- Cliquez sur `OK` pour fermer les fenêtres de configuration.
