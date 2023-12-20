@@ -14,7 +14,7 @@ Assurez-vous que les outils suivants sont installés sur votre ordinateur :
 ## Étape 1 : Cloner le Projet depuis GitHub
 
 Ouvrez le terminal ou l'invite de commande et exécutez la commande suivante pour cloner le projet :
-- `https://github.com/danielribeiroc/F1_Telemetry_VIProject.git`
+- `git clone https://github.com/danielribeiroc/F1_Telemetry_VIProject.git`
 - `cd F1_Telemetry_VIProject`
 
 ## Étape 2 : Vérifier le Dockerfile
@@ -31,7 +31,9 @@ Après la construction de l'image, lancez l'application avec :
 
 ## Étape 5 : Accéder à l'Application Dash via le localhost
 
-Ouvrez un navigateur web et allez à l'adresse **http://localhost:9002** Vous devriez voir l'application Dash en cours d'exécution.
+Ouvrez un navigateur web et allez à l'adresse **http://localhost:9002** Vous devriez voir l'application Dash en cours d'exécution. 
+
+- **PS** : Le premier chargement du tab 1 peut être assez long au début en raison des appels à l'API FastF1. Les données sont ensuite ajouter dans le cache local de l'application afin d'améliorer la rapidité de celle-ci.
 
 ## Description projet - Ma_VI_Master_Engineering - Data Science
 
